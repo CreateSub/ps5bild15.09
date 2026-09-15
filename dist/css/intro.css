@@ -1,0 +1,471 @@
+/* =========================================================
+   INTRO MODULE (isolated — safe to keep when replacing #app-shell)
+========================================================= */
+
+body.intro-active {
+  overflow: hidden;
+}
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: radial-gradient(circle at center, #111218 0%, #050507 48%, #000 100%);
+  overflow: hidden;
+  transition: opacity 1s ease;
+}
+
+#intro-fx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.intro-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 15%,
+    rgba(0, 0, 0, 0.25) 48%,
+    #000 100%
+  );
+}
+
+.intro-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(255, 255, 255, 0.5) 3px
+  );
+}
+
+.intro-scene {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1100px;
+  height: 700px;
+  transform: translate(-50%, -50%);
+}
+
+.intro-controller {
+  position: absolute;
+  width: 430px;
+  height: 300px;
+  top: 195px;
+  filter:
+    drop-shadow(0 0 18px rgba(255, 255, 255, 0.45))
+    drop-shadow(0 18px 28px rgba(0, 0, 0, 0.55));
+  will-change: transform;
+}
+
+.intro-controller.left {
+  left: -30px;
+  animation: controllerLeft 6s cubic-bezier(0.12, 0.78, 0.18, 1) forwards;
+}
+
+.intro-controller.right {
+  right: -30px;
+  animation: controllerRight 6s cubic-bezier(0.12, 0.78, 0.18, 1) forwards;
+}
+
+.intro-controller svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+@keyframes controllerLeft {
+  0% {
+    transform: translateX(-650px) rotate(-16deg) scale(0.88);
+  }
+  20% {
+    transform: translateX(-390px) rotate(-9deg) scale(0.92);
+  }
+  37% {
+    transform: translateX(-90px) rotate(-2deg) scale(0.98);
+  }
+  43% {
+    transform: translateX(-5px) rotate(0deg) scale(1);
+  }
+  49% {
+    transform: translateX(-65px) rotate(-2deg) scale(0.99);
+  }
+  58% {
+    transform: translateX(-5px) rotate(0deg) scale(1);
+  }
+  67% {
+    transform: translateX(-50px) rotate(-2deg) scale(0.99);
+  }
+  76% {
+    transform: translateX(-10px) rotate(0deg) scale(1);
+  }
+  100% {
+    transform: translateX(-520px) rotate(-28deg) scale(0.65);
+    opacity: 0;
+  }
+}
+
+@keyframes controllerRight {
+  0% {
+    transform: translateX(650px) rotate(16deg) scale(0.88);
+  }
+  20% {
+    transform: translateX(390px) rotate(9deg) scale(0.92);
+  }
+  37% {
+    transform: translateX(90px) rotate(2deg) scale(0.98);
+  }
+  43% {
+    transform: translateX(5px) rotate(0deg) scale(1);
+  }
+  49% {
+    transform: translateX(65px) rotate(2deg) scale(0.99);
+  }
+  58% {
+    transform: translateX(5px) rotate(0deg) scale(1);
+  }
+  67% {
+    transform: translateX(50px) rotate(2deg) scale(0.99);
+  }
+  76% {
+    transform: translateX(10px) rotate(0deg) scale(1);
+  }
+  100% {
+    transform: translateX(520px) rotate(28deg) scale(0.65);
+    opacity: 0;
+  }
+}
+
+.intro-hud-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 360px;
+  height: 360px;
+  transform: translate(-50%, -50%) scale(0.1);
+  border: 1px solid rgba(229, 189, 104, 0.55);
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow:
+    0 0 70px rgba(229, 189, 104, 0.22),
+    inset 0 0 50px rgba(229, 189, 104, 0.08);
+  animation: ringAnimation 6s ease forwards;
+}
+
+.intro-hud-ring::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 280px;
+  height: 280px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.intro-hud-ring::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 510px;
+  height: 510px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(229, 189, 104, 0.12);
+  border-radius: 50%;
+}
+
+@keyframes ringAnimation {
+  0%,
+  35% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+  42%,
+  51%,
+  62% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  76%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.7);
+  }
+}
+
+.intro-impact {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  box-shadow:
+    0 0 20px 10px white,
+    0 0 75px 35px #e6b95e,
+    0 0 180px 70px rgba(105, 115, 255, 0.8);
+  animation: impactAnimation 6s ease forwards;
+}
+
+@keyframes impactAnimation {
+  0%,
+  34%,
+  44%,
+  53%,
+  64% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  40%,
+  49%,
+  59%,
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(8);
+  }
+  74%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+.intro-shards {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.intro-shard {
+  position: absolute;
+  width: 3px;
+  height: 25px;
+  background: linear-gradient(#fff, #e5b85c);
+  box-shadow: 0 0 12px #e5b85c;
+  opacity: 0;
+  animation: shardAnimation 1.4s cubic-bezier(0.12, 0.7, 0.2, 1) 4.05s forwards;
+}
+
+.intro-shard:nth-child(1) {
+  --x: -500px;
+  --y: -220px;
+  --r: 25deg;
+}
+.intro-shard:nth-child(2) {
+  --x: 510px;
+  --y: -250px;
+  --r: -40deg;
+}
+.intro-shard:nth-child(3) {
+  --x: -540px;
+  --y: 80px;
+  --r: 75deg;
+}
+.intro-shard:nth-child(4) {
+  --x: 530px;
+  --y: 120px;
+  --r: -60deg;
+}
+.intro-shard:nth-child(5) {
+  --x: -280px;
+  --y: -330px;
+  --r: -20deg;
+}
+.intro-shard:nth-child(6) {
+  --x: 300px;
+  --y: 330px;
+  --r: 45deg;
+}
+.intro-shard:nth-child(7) {
+  --x: -100px;
+  --y: 350px;
+  --r: -70deg;
+}
+.intro-shard:nth-child(8) {
+  --x: 150px;
+  --y: -340px;
+  --r: 15deg;
+}
+
+@keyframes shardAnimation {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(var(--r)) scale(0.2);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) rotate(calc(var(--r) + 180deg)) scale(1.5);
+  }
+}
+
+.intro-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.08);
+  opacity: 0;
+  color: white;
+  font-weight: 1000;
+  font-size: clamp(28px, 6.2vw, 72px);
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow:
+    0 0 20px rgba(255, 255, 255, 0.28),
+    0 0 65px rgba(229, 187, 93, 0.35);
+  animation: logoAppear 1.35s cubic-bezier(0.16, 0.82, 0.24, 1.18) 4.25s forwards;
+}
+
+.intro-logo b {
+  color: #e4b95e;
+}
+
+@keyframes logoAppear {
+  0% {
+    opacity: 0;
+    filter: blur(24px);
+    transform: translate(-50%, -50%) scale(0.08);
+  }
+  55% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes logoToCorner {
+  0% {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    font-size: clamp(28px, 6.2vw, 72px);
+    text-shadow:
+      0 0 20px rgba(255, 255, 255, 0.28),
+      0 0 65px rgba(229, 187, 93, 0.35);
+  }
+  30% {
+    left: 46%;
+    top: 40%;
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+  70% {
+    left: 70px;
+    top: 50px;
+    transform: translate(0, 0) scale(0.32);
+    text-shadow: 0 0 12px rgba(229, 187, 93, 0.25);
+  }
+  100% {
+    left: 34px;
+    top: 26px;
+    transform: translate(0, 0) scale(0.24);
+    font-size: 72px;
+    text-shadow: 0 0 8px rgba(229, 187, 93, 0.18);
+  }
+}
+
+.intro-tag {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 120px);
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+  letter-spacing: 0.55em;
+  opacity: 0;
+  animation: tagAppear 1s 4.8s forwards;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes tagAppear {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Persistent header logo (lives in #app-shell) */
+.site-logo {
+  margin: 0;
+  font-size: clamp(1.05rem, 2.2vw, 1.55rem);
+  font-weight: 1000;
+  letter-spacing: -0.04em;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  line-height: 1.1;
+}
+
+.site-logo b {
+  color: #e4b95e;
+}
+
+.site-logo.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* App shell hidden under intro until handoff */
+#app-shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.85s ease, visibility 0s linear 0.85s;
+}
+
+#app-shell.is-ready {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.85s ease, visibility 0s linear 0s;
+}
+
+body.intro-done #app-shell {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 700px) {
+  .intro-scene {
+    transform: translate(-50%, -50%) scale(0.62);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #intro {
+    display: none !important;
+  }
+
+  #app-shell {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .site-logo {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Приставка рядом — Аренда PlayStation 5</title>
+  <!-- inject:css -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- /inject:css -->
+</head>
+<body class="intro-active">
+  <!-- ========== INTRO (module: css/intro.css + js/intro.js) ========== -->
+  <div id="intro" role="presentation">
+    <canvas id="intro-fx" aria-hidden="true"></canvas>
+    <div class="intro-vignette" aria-hidden="true"></div>
+    <div class="intro-scanlines" aria-hidden="true"></div>
+
+    <div class="intro-scene">
+      <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+        <defs>
+          <linearGradient id="controllerBody" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset=".4" stop-color="#ffffff"/>
+            <stop offset=".75" stop-color="#f7f8fb"/>
+            <stop offset="1" stop-color="#eef0f4"/>
+          </linearGradient>
+          <linearGradient id="lightBar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e8eaff"/>
+            <stop offset=".5" stop-color="#8b93ff"/>
+            <stop offset="1" stop-color="#5a62e8"/>
+          </linearGradient>
+          <filter id="blueGlow">
+            <feGaussianBlur stdDeviation="3.5" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="whiteBodyGlow">
+            <feGaussianBlur stdDeviation="2.2" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+      <div class="intro-hud-ring" aria-hidden="true"></div>
+      <div class="intro-impact" aria-hidden="true"></div>
+
+      <div class="intro-controller left" aria-hidden="true">
+        <svg viewBox="0 0 430 300" aria-hidden="true">
+          <path d="M79 94C90 55 121 35 168 41L215 49L262 41C309 35 340 55 351 94C365 143 384 207 358 232C337 252 317 216 297 191C281 171 265 164 215 164C165 164 149 171 133 191C113 216 93 252 72 232C46 207 65 143 79 94Z" fill="url(#controllerBody)" stroke="#e6e8ed" stroke-width="2" filter="url(#whiteBodyGlow)"/>
+          <path d="M121 69Q215 37 309 69" fill="none" stroke="url(#lightBar)" stroke-width="5" stroke-linecap="round" filter="url(#blueGlow)"/>
+          <path d="M151 67Q215 51 279 67L270 117Q215 128 160 117Z" fill="#ffffff" stroke="#dde0e6" stroke-width="2"/>
+          <circle cx="158" cy="139" r="22" fill="#f4f5f8" stroke="#d0d5dc" stroke-width="2"/>
+          <circle cx="158" cy="139" r="13" fill="#ffffff"/>
+          <circle cx="272" cy="139" r="22" fill="#f4f5f8" stroke="#d0d5dc" stroke-width="2"/>
+          <circle cx="272" cy="139" r="13" fill="#ffffff"/>
+          <path d="M102 117H118V131H132V147H118V161H102V147H88V131H102Z" fill="#f7f8fb" stroke="#cfd3da"/>
+          <circle cx="320" cy="121" r="9" fill="#ffffff" stroke="#cfd3da"/>
+          <circle cx="336" cy="137" r="9" fill="#ffffff" stroke="#cfd3da"/>
+          <circle cx="320" cy="153" r="9" fill="#ffffff" stroke="#cfd3da"/>
+          <circle cx="304" cy="137" r="9" fill="#ffffff" stroke="#cfd3da"/>
+          <circle cx="215" cy="133" r="9" fill="#f7f8fb" stroke="#cfd3da"/>
+        </svg>
+      </div>
+
+      <div class="intro-controller right" aria-hidden="true">
+        <svg viewBox="0 0 430 300" aria-hidden="true">
+          <path d="M79 94C90 55 121 35 168 41L215 49L262 41C309 35 340 55 351 94C365 143 384 207 358 232C337 252 317 216 297 191C281 171 265 164 215 164C165 164 149 171 133 191C113 216 93 252 72 232C46 207 65 143 79 94Z" fill="url(#controllerBody)" stroke="#e6e8ed" stroke-width="2" filter="url(#whiteBodyGlow)"/>
+          <path d="M121 69Q215 37 309 69" fill="none" stroke="url(#lightBar)" stroke-width="5" stroke-linecap="round" filter="url(#blueGlow)"/>
+          <path d="M151 67Q215 51 279 67L270 117Q215 128 160 117Z" fill="#ffffff" stroke="#dde0e6" stroke-width="2"/>
+          <circle cx="158" cy="139" r="22" fill="#f4f5f8" stroke="#d0d5dc" stroke-width="2"/>
+          <circle cx="158" cy="139" r="13" fill="#ffffff"/>
+          <circle cx="272" cy="139" r="22" fill="#f4f5f8" stroke="#d0d5dc" stroke-width="2"/>
+          <circle cx="272" cy="139" r="13" fill="#ffffff"/>
+          <path d="M102 117H118V131H132V147H118V161H102V147H88V131H102Z" fill="#f7f8fb" stroke="#cfd3da"/>
+          <circle cx="320" cy="121" r="9" fill="#ffffff" stroke="#cfd3da"/>
+          <circle cx="336" cy="137" r="9" fill="#ffffff" stroke="#cfd3da"/>
+          <circle cx="320" cy="153" r="9" fill="#ffffff" stroke="#cfd3da"/>
+          <circle cx="304" cy="137" r="9" fill="#ffffff" stroke="#cfd3da"/>
+          <circle cx="215" cy="133" r="9" fill="#f7f8fb" stroke="#cfd3da"/>
+        </svg>
+      </div>
+
+      <div class="intro-shards" aria-hidden="true">
+        <i class="intro-shard"></i><i class="intro-shard"></i><i class="intro-shard"></i><i class="intro-shard"></i>
+        <i class="intro-shard"></i><i class="intro-shard"></i><i class="intro-shard"></i><i class="intro-shard"></i>
+      </div>
+
+      <div class="intro-logo"><b>Приставка</b> рядом</div>
+      <div class="intro-tag">PLAY · RENT · EXPERIENCE</div>
+    </div>
+  </div>
+
+  <!-- ========== MAIN APP (replace this shell freely — intro stays untouched) ========== -->
+  <div id="app-shell" aria-hidden="true">
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="brand">
+      <h1 id="site-logo" class="site-logo"><b>Приставка</b> рядом</h1>
+    </div>
+    <div class="header-actions" id="header-actions" hidden>
+      <button type="button" class="btn btn-ghost" id="cabinet-btn" hidden>Кабинет</button>
+      <span class="user-chip" id="user-chip"></span>
+      <button type="button" class="btn btn-ghost" id="logout-btn">Выйти</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== CLIENT AUTH / LANDING ========== -->
+    <section class="auth-screen" id="auth-screen">
+      <div class="hero">
+        <p class="hero-kicker">Аренда игровой консоли</p>
+        <h2 class="hero-brand">Приставка рядом</h2>
+        <p class="hero-lead">PlayStation&nbsp;5 от 599&nbsp;₽ / сутки. Зарегистрируйтесь, выберите категорию и оформите аренду — менеджер свяжется с вами.</p>
+      </div>
+
+      <div class="auth-panel">
+        <div class="auth-tabs" role="tablist">
+          <button type="button" class="auth-tab is-active" data-tab="login" role="tab" aria-selected="true">Вход</button>
+          <button type="button" class="auth-tab" data-tab="register" role="tab" aria-selected="false">Регистрация</button>
+        </div>
+
+        <form id="login-form" class="auth-form" autocomplete="on">
+          <label class="field">
+            <span>Телефон</span>
+            <input type="text" name="login" id="login-login" placeholder="79026936225" required />
+          </label>
+          <label class="field">
+            <span>Пароль</span>
+            <input type="password" name="password" id="login-password" placeholder="••••••••" required minlength="5" />
+          </label>
+          <p class="form-hint">Клиент (тест): <strong>79026936225</strong> / <strong>12345678</strong></p>
+          <p class="form-error" id="login-error" hidden></p>
+          <button type="submit" class="btn btn-gold">Войти</button>
+          <p class="form-hint auth-forgot-wrap">
+            <button type="button" class="link-btn" id="forgot-password-btn">Забыли пароль?</button>
+          </p>
+        </form>
+
+        <form id="reset-request-form" class="auth-form" hidden autocomplete="on">
+          <p class="form-hint">Введите телефон — пришлём SMS с кодом.</p>
+          <label class="field">
+            <span>Телефон</span>
+            <input type="text" name="phone" id="reset-phone" placeholder="79XXXXXXXXX" required />
+          </label>
+          <p class="form-error" id="reset-request-error" hidden></p>
+          <button type="submit" class="btn btn-gold">Отправить код</button>
+          <button type="button" class="btn btn-ghost" id="reset-back-login">Назад ко входу</button>
+        </form>
+
+        <form id="reset-confirm-form" class="auth-form" hidden autocomplete="off">
+          <p class="form-hint" id="reset-confirm-hint">Код отправлен в SMS. Действует 10 минут.</p>
+          <label class="field">
+            <span>Код из SMS</span>
+            <input type="text" name="code" id="reset-code" inputmode="numeric" maxlength="4" placeholder="1234" required />
+          </label>
+          <label class="field">
+            <span>Новый пароль</span>
+            <input type="password" name="password" id="reset-password" required minlength="5" autocomplete="new-password" />
+          </label>
+          <label class="field">
+            <span>Повторите пароль</span>
+            <input type="password" name="password2" id="reset-password2" required minlength="5" autocomplete="new-password" />
+          </label>
+          <p class="form-error" id="reset-confirm-error" hidden></p>
+          <button type="submit" class="btn btn-gold">Сохранить пароль</button>
+          <button type="button" class="btn btn-ghost" id="reset-resend-btn">Отправить код ещё раз</button>
+        </form>
+
+        <form id="register-form" class="auth-form" hidden autocomplete="on">
+          <label class="field">
+            <span>ФИО</span>
+            <input type="text" name="name" id="reg-name" placeholder="Иванов Иван Иванович" required />
+          </label>
+          <label class="field">
+            <span>Телефон</span>
+            <input type="text" name="login" id="reg-login" placeholder="79XXXXXXXXX" required />
+          </label>
+          <label class="field">
+            <span>Пароль</span>
+            <input type="password" name="password" id="reg-password" placeholder="минимум 6 символов" required minlength="6" />
+          </label>
+          <label class="field">
+            <span>Повторите пароль</span>
+            <input type="password" name="password2" id="reg-password2" required minlength="6" />
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" id="reg-privacy-agree" name="privacyAgree" />
+            <span>Я согласен на обработку персональных данных согласно <button type="button" class="link-btn js-open-privacy">политике конфиденциальности</button></span>
+          </label>
+          <p class="form-error" id="register-error" hidden></p>
+          <button type="submit" class="btn btn-gold">Зарегистрироваться</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== CLIENT BOOKING (after auth) ========== -->
+    <section class="booking-screen" id="booking-screen" hidden>
+      <!-- Главная: карточки + отзывы -->
+      <div id="booking-home-view">
+        <div class="booking-intro">
+          <h2>Каталог аренды</h2>
+          <p>Выберите категорию оборудования. Минимальный срок аренды — 24 часа.</p>
+        </div>
+
+        <nav class="product-cards" id="product-cards" aria-label="Каталог аренды">
+          <button type="button" class="product-card" data-product="ps5">
+            <div class="product-card-box" aria-hidden="true"></div>
+            <p class="product-card-label">🔥 PS5/PS5 PRO</p>
+          </button>
+          <button type="button" class="product-card" data-product="vr2">
+            <div class="product-card-box" aria-hidden="true"></div>
+            <p class="product-card-label">🔥 VR2</p>
+          </button>
+          <button type="button" class="product-card" data-product="periphery">
+            <div class="product-card-box" aria-hidden="true"></div>
+            <p class="product-card-label">🔥 Периферия</p>
+          </button>
+        </nav>
+
+        <section class="games-catalog" id="games-catalog" aria-labelledby="games-catalog-title">
+          <h3 id="games-catalog-title">Игры по подписке</h3>
+          <p class="games-catalog-lead">Каталоги PS Plus Premium и EA Play с официальных страниц Sony и EA. Premium включает каталог Extra и классику. Состав подписок меняется — сверяйте полный список по ссылке под поиском.</p>
+          <div class="games-catalog-tabs" role="tablist">
+            <button type="button" class="games-catalog-tab is-active" data-catalog="premium" role="tab" aria-selected="true">PS Premium</button>
+            <button type="button" class="games-catalog-tab" data-catalog="eaPlay" role="tab" aria-selected="false">EA Play</button>
+          </div>
+          <label class="field games-search-field">
+            <span>Поиск игры</span>
+            <input type="search" id="games-search" placeholder="Например: God of War, Baldur's Gate, FC 26…" autocomplete="off" />
+          </label>
+          <p class="games-catalog-meta" id="games-catalog-meta"></p>
+          <ul class="games-catalog-list" id="games-catalog-list"></ul>
+          <p class="games-catalog-empty" id="games-catalog-empty" hidden>Ничего не найдено. Попробуйте другое название.</p>
+          <p class="form-hint" id="games-wanted-hint" hidden></p>
+        </section>
+      </div>
+
+      <!-- Подраздел: календарь + оформление заказа -->
+      <div id="product-detail-view" hidden>
+        <button type="button" class="btn-back" id="back-to-home">← Назад к каталогу</button>
+
+        <header class="product-detail-header">
+          <h2 id="product-detail-title">PS5 / PS5 PRO</h2>
+          <p id="product-detail-desc">Выберите даты аренды и способ получения. Менеджер свяжется с вами для уточнения деталей.</p>
+        </header>
+
+        <section class="console-choice" id="console-choice" hidden aria-labelledby="console-choice-title">
+          <h3 id="console-choice-title">Выберите консоль</h3>
+          <div class="console-choice-grid">
+            <label class="console-option">
+              <input type="radio" name="console-model" value="ps5" id="console-ps5" checked />
+              <span class="console-option-card">
+                <strong>PS5</strong>
+                <small>от 599 ₽ / сутки</small>
+              </span>
+            </label>
+            <label class="console-option">
+              <input type="radio" name="console-model" value="ps5_pro" id="console-ps5-pro" />
+              <span class="console-option-card">
+                <strong>PS5 PRO</strong>
+                <small>от 799 ₽ / сутки</small>
+              </span>
+            </label>
+          </div>
+        </section>
+
+        <div class="booking-grid">
+          <div class="calendar-panel">
+            <div class="calendar-modes" id="calendar-modes">
+              <button type="button" class="mode-btn is-active" data-mode="range">Период (начало → конец)</button>
+              <button type="button" class="mode-btn" data-mode="week">Заполнить неделю</button>
+            </div>
+            <p class="calendar-hint" id="calendar-hint">Выберите дату начала — конец по умолчанию +1 день (24 ч).</p>
+
+            <div class="calendar-nav">
+              <button type="button" class="btn btn-icon" id="prev-month" aria-label="Предыдущий месяц">‹</button>
+              <h3 id="calendar-month-label"></h3>
+              <button type="button" class="btn btn-icon" id="next-month" aria-label="Следующий месяц">›</button>
+            </div>
+            <div class="calendar-weekdays" aria-hidden="true">
+              <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+            </div>
+            <div class="calendar-days" id="calendar-days"></div>
+            <div class="calendar-legend">
+              <span><i class="dot available"></i> Свободно</span>
+              <span><i class="dot selected"></i> Период</span>
+              <span><i class="dot range-end"></i> Начало / конец</span>
+              <span><i class="dot past"></i> Прошедшие</span>
+            </div>
+            <button type="button" class="btn btn-ghost btn-block" id="clear-range-btn">Сбросить даты</button>
+          </div>
+
+          <div class="checkout-panel">
+            <!-- Комплектация PS5 (только для ps5) -->
+            <section class="kit-section" id="ps5-kit-section" hidden aria-labelledby="kit-title">
+              <h3 id="kit-title">Комплектация</h3>
+              <div class="kit-grid">
+                <div class="kit-item">
+                  <span class="kit-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="8" rx="2"/><circle cx="8" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>
+                  </span>
+                  <span class="kit-label">Два геймпада</span>
+                </div>
+                <div class="kit-item">
+                  <span class="kit-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 10h8M8 14h5"/></svg>
+                  </span>
+                  <span class="kit-label">Игры</span>
+                </div>
+                <div class="kit-item">
+                  <span class="kit-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 3v4M8 7h8"/><rect x="6" y="7" width="12" height="14" rx="2"/><path d="M10 14h4"/></svg>
+                  </span>
+                  <span class="kit-label">Зарядка</span>
+                </div>
+                <div class="kit-item">
+                  <span class="kit-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                  </span>
+                  <span class="kit-label">Переносная сумка</span>
+                </div>
+                <div class="kit-item">
+                  <span class="kit-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M4 8h16v2H4z"/><path d="M6 10v6M10 10v6M14 10v6M18 10v6"/><path d="M8 16h8"/></svg>
+                  </span>
+                  <span class="kit-label">Кабель HDMI</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- Доп. периферия для PS5 -->
+            <section class="extras-section" id="ps5-extras-section" hidden aria-labelledby="extras-title">
+              <h3 id="extras-title">Дополнительная периферия</h3>
+              <div class="extras-list">
+                <label class="field extra-qty-field">
+                  <span>Дополнительные геймпады</span>
+                  <select id="extra-gamepad-qty" name="extraGamepads">
+                    <option value="0" selected>Не нужны</option>
+                    <option value="1">1 геймпад · 300 ₽</option>
+                    <option value="2">2 геймпада · 600 ₽</option>
+                  </select>
+                </label>
+                <label class="checkbox-row">
+                  <input type="checkbox" id="extra-tv" value="tv" />
+                  <span>Телевизор</span>
+                </label>
+              </div>
+              <p class="extras-hint">В комплекте уже 2 геймпада. Дополнительный — 300&nbsp;₽ за штуку (можно взять ещё 1 или 2).</p>
+            </section>
+
+            <div class="order-summary">
+              <h3>Ваш заказ</h3>
+              <ul class="selected-dates" id="selected-dates-list">
+                <li class="empty">Период не выбран</li>
+              </ul>
+              <div class="total-row">
+                <span>Итого</span>
+                <strong id="total-price">0 ₽</strong>
+              </div>
+              <p class="rate-note" id="pricing-note">Тариф PS5: 1 дн. — 1&nbsp;199&nbsp;₽ · 2 — 1&nbsp;999 · от 3 дн. — 899/сут. · от 7 дн. — 599/сут.</p>
+              <p class="rate-note rate-note-warn" id="pricing-holiday-note">В праздничные дни цена может меняться — дополнительную информацию уточнит менеджер.</p>
+            </div>
+
+            <form id="order-form" class="order-form payment-form">
+              <fieldset class="choice-fieldset city-choice">
+                <legend>Город аренды</legend>
+                <div class="console-choice-grid city-choice-grid" id="order-city-choice" role="radiogroup">
+                  <label class="console-option">
+                    <input type="radio" name="order-city" value="tyumen" checked />
+                    <span class="console-option-card">
+                      <strong>Тюмень</strong>
+                      <small>Выезд / доставка</small>
+                    </span>
+                  </label>
+                  <label class="console-option">
+                    <input type="radio" name="order-city" value="surgut" />
+                    <span class="console-option-card">
+                      <strong>Сургут</strong>
+                      <small>Выезд / доставка</small>
+                    </span>
+                  </label>
+                  <label class="console-option">
+                    <input type="radio" name="order-city" value="nefteyugansk" />
+                    <span class="console-option-card">
+                      <strong>Нефтеюганск</strong>
+                      <small>Выезд / доставка</small>
+                    </span>
+                  </label>
+                </div>
+                <input type="hidden" id="order-city" name="city" value="tyumen" />
+              </fieldset>
+
+              <fieldset class="fulfillment">
+                <legend>Способ получения</legend>
+                <label class="radio-row">
+                  <input type="radio" name="fulfillment" value="delivery" id="opt-delivery" checked />
+                  <span>Доставка</span>
+                </label>
+                <label class="radio-row">
+                  <input type="radio" name="fulfillment" value="pickup" id="opt-pickup" />
+                  <span>Самовывоз</span>
+                </label>
+                <div id="delivery-address-wrap" class="delivery-address-grid">
+                  <label class="field">
+                    <span>Город</span>
+                    <input type="text" id="delivery-city" name="deliveryCity" placeholder="Тюмень" autocomplete="address-level2" />
+                  </label>
+                  <label class="field">
+                    <span>Улица и дом</span>
+                    <input type="text" id="delivery-street" name="deliveryStreet" placeholder="ул. Ленина, 10" autocomplete="street-address" />
+                  </label>
+                  <label class="field">
+                    <span>Квартира</span>
+                    <input type="text" id="delivery-apt" name="deliveryApt" placeholder="42" autocomplete="address-line2" />
+                  </label>
+                </div>
+                <p class="pickup-note" id="pickup-note" hidden>
+                  Адрес самовывоза: г. Тюмень, ул. Павла Шарова 1к1, 6 подъезд
+                </p>
+              </fieldset>
+
+              <fieldset class="choice-fieldset">
+                <legend>Комментарии для сервиса</legend>
+                <p class="form-hint" id="order-wanted-games" hidden></p>
+                <label class="field">
+                  <textarea id="order-game-note" name="gameNote" maxlength="500" rows="4" placeholder="Здесь вы можете указать интересующие Вас игры, желаемое время доставки"></textarea>
+                </label>
+              </fieldset>
+
+              <fieldset class="choice-fieldset promo-fieldset">
+                <legend>Промокод</legend>
+                <input type="text" id="order-promo" name="promoCode" maxlength="20" autocomplete="off" />
+              </fieldset>
+
+              <div class="terms-block">
+                <h3>Публичная оферта (договор проката)</h3>
+                <div class="terms-text" tabindex="0" id="oferta-preview">
+                  <p>Официальное предложение сервиса «Приставка рядом» заключить договор проката игрового оборудования. Акцепт — галочка согласия при оформлении заказа (п. 2 ст. 437, п. 1 ст. 438 ГК РФ).</p>
+                  <p>2.1. Арендодатель предоставляет оборудование во временное пользование (прокат), Арендатор принимает, оплачивает и своевременно возвращает его в исправном состоянии.</p>
+                  <p>4.2.4. Возврат комплекта — до 16:00 последнего расчётного дня аренды.</p>
+                  <p>5.2. Оплата — 100% предоплата до передачи оборудования.</p>
+                  <p>6. Штрафы: 500 ₽ за возврат после 16:00; 1 000 ₽/день за просрочку свыше суток; 2 500 ₽ за перенос без согласования; 5 000 ₽ за нецелевое использование. Утрата или гибель — возмещение 83 000 ₽.</p>
+                  <p>Полный текст — по кнопке ниже и в PDF.</p>
+                </div>
+                <p class="terms-read-link">
+                  <button type="button" class="link-btn js-open-oferta">Читать полный договор оферты</button>
+                  <a class="link-btn" href="docs/Oferta_Pristavka_Ryadom.pdf" target="_blank" rel="noopener">Скачать PDF</a>
+                </p>
+                <label class="checkbox-row">
+                  <input type="checkbox" id="terms-agree" name="termsAgree" />
+                  <span>Соглашаюсь с условиями <button type="button" class="link-btn js-open-oferta">публичной оферты</button> и обработки персональных данных</span>
+                </label>
+              </div>
+
+              <p class="form-error" id="order-error" hidden></p>
+              <button type="submit" class="btn btn-gold" id="order-btn" disabled>Оформить заказ</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CLIENT CABINET ========== -->
+    <section class="cabinet-screen" id="cabinet-screen" hidden>
+      <div class="booking-intro cabinet-intro">
+        <button type="button" class="btn-back" id="cabinet-back">← К каталогу</button>
+        <h2>Личный кабинет</h2>
+        <p>Ваши данные, заказы и уровень лояльности.</p>
+      </div>
+
+      <div class="cabinet-grid">
+        <article class="cabinet-card cabinet-profile">
+          <h3>Ваши данные</h3>
+          <dl class="cabinet-dl" id="cabinet-profile">
+            <div><dt>ФИО</dt><dd id="cab-fio">—</dd></div>
+            <div><dt>Телефон</dt><dd id="cab-phone">—</dd></div>
+          </dl>
+        </article>
+
+        <article class="cabinet-card cabinet-loyalty" id="cabinet-loyalty">
+          <h3>Ваш уровень</h3>
+          <div class="loyalty-badge" data-level="none">
+            <div class="trophy trophy-none" aria-hidden="true">🏆</div>
+            <div>
+              <p class="loyalty-title" id="cab-loyalty-title">Новичок</p>
+              <p class="loyalty-meta" id="cab-loyalty-meta">Выполните 5 заказов, чтобы получить бронзу и скидку 15%.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <section class="promo-panel cabinet-promo" aria-labelledby="loyalty-promo-title">
+        <h3 id="loyalty-promo-title">Система скидок</h3>
+        <div class="promo-carousel" id="loyalty-carousel" data-carousel>
+          <div class="promo-carousel-track loyalty-track">
+            <figure class="promo-slide is-active loyalty-slide bronze">
+              <div class="loyalty-slide-inner">
+                <span class="trophy trophy-bronze">🏆</span>
+                <strong>Бронза · от 5 заказов</strong>
+                <p>Скидка 15% на аренду</p>
+              </div>
+            </figure>
+            <figure class="promo-slide loyalty-slide silver">
+              <div class="loyalty-slide-inner">
+                <span class="trophy trophy-silver">🏆</span>
+                <strong>Серебро · от 15 заказов</strong>
+                <p>Скидка 20% на аренду</p>
+              </div>
+            </figure>
+            <figure class="promo-slide loyalty-slide gold">
+              <div class="loyalty-slide-inner">
+                <span class="trophy trophy-gold">🏆</span>
+                <strong>Золото · от 20 заказов</strong>
+                <p>Скидка 25% на аренду</p>
+              </div>
+            </figure>
+            <figure class="promo-slide loyalty-slide platinum">
+              <div class="loyalty-slide-inner">
+                <span class="trophy trophy-platinum">🏆</span>
+                <strong>Платина · от 25 заказов</strong>
+                <p>Скидка 30% на аренду</p>
+              </div>
+            </figure>
+          </div>
+          <div class="promo-carousel-nav">
+            <button type="button" class="promo-carousel-btn" data-carousel-prev aria-label="Предыдущий слайд">‹</button>
+            <div class="promo-carousel-dots" role="tablist" aria-label="Слайды">
+              <button type="button" class="promo-dot is-active" data-carousel-dot="0" aria-label="Слайд 1"></button>
+              <button type="button" class="promo-dot" data-carousel-dot="1" aria-label="Слайд 2"></button>
+              <button type="button" class="promo-dot" data-carousel-dot="2" aria-label="Слайд 3"></button>
+              <button type="button" class="promo-dot" data-carousel-dot="3" aria-label="Слайд 4"></button>
+            </div>
+            <button type="button" class="promo-carousel-btn" data-carousel-next aria-label="Следующий слайд">›</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="cabinet-orders">
+        <h3>Ваши заказы</h3>
+        <div class="orders-list" id="cabinet-orders">
+          <p class="empty-cell">Заказов пока нет</p>
+        </div>
+      </section>
+    </section>
+
+    <!-- ========== ADMIN DASHBOARD (section 2) ========== -->
+    <section class="admin-screen" id="admin-screen" hidden>
+      <div class="booking-intro">
+        <h2>Панель администратора</h2>
+        <p id="admin-intro-text">Заказы, клиенты и парк приставок по городам.</p>
+      </div>
+
+      <div class="admin-tabs" role="tablist">
+        <button type="button" class="admin-tab is-active" data-admin-tab="orders">Активные заказы</button>
+        <button type="button" class="admin-tab" data-admin-tab="clients">База клиентов</button>
+        <button type="button" class="admin-tab" data-admin-tab="inventory">Приставки</button>
+        <button type="button" class="admin-tab" data-admin-tab="promos">Промокоды</button>
+      </div>
+
+      <div id="admin-orders-panel" class="admin-panel">
+        <div class="admin-filter-block" id="admin-city-filter-wrap" hidden>
+          <p class="admin-filter-label">Фильтр по городу</p>
+          <div class="console-choice-grid city-choice-grid admin-filter-grid" id="admin-city-filter" role="group">
+            <button type="button" class="choice-chip is-active" data-city="">Все</button>
+            <button type="button" class="choice-chip" data-city="tyumen">Тюмень</button>
+            <button type="button" class="choice-chip" data-city="surgut">Сургут</button>
+            <button type="button" class="choice-chip" data-city="nefteyugansk">Нефтеюганск</button>
+          </div>
+        </div>
+        <div class="orders-list" id="orders-list">
+          <p class="empty-cell">Заказов пока нет</p>
+        </div>
+      </div>
+
+      <div id="admin-clients-panel" class="admin-panel" hidden>
+        <form id="client-add-form" class="client-add-form">
+          <p class="admin-filter-label" style="margin-top:0">Новый клиент (звонок)</p>
+          <div class="client-add-grid">
+            <label class="field">
+              <span>ФИО</span>
+              <input type="text" name="fio" id="client-fio" placeholder="Иванов Иван" required />
+            </label>
+            <label class="field">
+              <span>Телефон</span>
+              <input type="text" name="phone" id="client-phone" placeholder="79XXXXXXXXX" required />
+            </label>
+            <label class="field">
+              <span>Заметка</span>
+              <input type="text" name="note" id="client-note" placeholder="Звонок, без сайта…" />
+            </label>
+          </div>
+
+          <fieldset class="choice-fieldset">
+            <legend>Оборудование</legend>
+            <div class="stack-choice-grid" id="client-product-choice" role="radiogroup">
+              <label class="console-option">
+                <input type="radio" name="client-product-radio" value="ps5" checked />
+                <span class="console-option-card"><strong>PS5</strong></span>
+              </label>
+              <label class="console-option">
+                <input type="radio" name="client-product-radio" value="ps5_pro" />
+                <span class="console-option-card"><strong>PS5 PRO</strong></span>
+              </label>
+              <label class="console-option">
+                <input type="radio" name="client-product-radio" value="vr2" />
+                <span class="console-option-card"><strong>VR2</strong></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="choice-fieldset">
+            <legend>Город</legend>
+            <div class="stack-choice-grid" id="client-city-choice" role="radiogroup">
+              <label class="console-option">
+                <input type="radio" name="client-city-radio" value="tyumen" checked />
+                <span class="console-option-card"><strong>Тюмень</strong></span>
+              </label>
+              <label class="console-option">
+                <input type="radio" name="client-city-radio" value="surgut" />
+                <span class="console-option-card"><strong>Сургут</strong></span>
+              </label>
+              <label class="console-option">
+                <input type="radio" name="client-city-radio" value="nefteyugansk" />
+                <span class="console-option-card"><strong>Нефтеюганск</strong></span>
+              </label>
+            </div>
+            <input type="hidden" name="city" id="client-city" value="tyumen" />
+          </fieldset>
+
+          <div class="mini-calendar" id="client-mini-calendar" aria-label="Календарь аренды">
+            <p class="admin-filter-label" style="margin-top:0">Даты аренды</p>
+            <div class="calendar-nav">
+              <button type="button" class="btn btn-icon" id="client-prev-month" aria-label="Предыдущий месяц">‹</button>
+              <h3 id="client-cal-month-label"></h3>
+              <button type="button" class="btn btn-icon" id="client-next-month" aria-label="Следующий месяц">›</button>
+            </div>
+            <div class="calendar-weekdays" aria-hidden="true">
+              <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+            </div>
+            <div class="calendar-days" id="client-cal-days"></div>
+            <p class="mini-cal-hint" id="client-cal-hint">Выберите начало, затем конец аренды</p>
+            <input type="hidden" name="startDate" id="client-start-date" />
+            <input type="hidden" name="endDate" id="client-end-date" />
+          </div>
+
+          <button type="submit" class="btn btn-gold">Добавить клиента и заявку</button>
+          <p class="form-error" id="client-add-error" hidden></p>
+        </form>
+        <div class="table-wrap">
+          <table class="data-table" id="clients-table">
+            <thead>
+              <tr>
+                <th>ФИО</th>
+                <th>Телефон</th>
+                <th>Города</th>
+                <th>Источник</th>
+              </tr>
+            </thead>
+            <tbody id="clients-tbody">
+              <tr><td colspan="4" class="empty-cell">Клиентов пока нет</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="admin-inventory-panel" class="admin-panel" hidden>
+        <div class="admin-filter-block">
+          <p class="admin-filter-label">Сортировка / фильтр по городу</p>
+          <div class="console-choice-grid city-choice-grid admin-filter-grid" id="inv-filter-city" role="group">
+            <button type="button" class="choice-chip is-active" data-city="">Все города</button>
+            <button type="button" class="choice-chip" data-city="tyumen">Тюмень</button>
+            <button type="button" class="choice-chip" data-city="surgut">Сургут</button>
+            <button type="button" class="choice-chip" data-city="nefteyugansk">Нефтеюганск</button>
+          </div>
+          <p class="admin-filter-label">Фильтр по модели</p>
+          <div class="console-choice-grid city-choice-grid admin-filter-grid" id="inv-filter-type" role="group">
+            <button type="button" class="choice-chip is-active" data-type="">Все модели</button>
+            <button type="button" class="choice-chip" data-type="ps5">PS5</button>
+            <button type="button" class="choice-chip" data-type="ps5_pro">PS5 PRO</button>
+            <button type="button" class="choice-chip" data-type="vr2">PS VR2</button>
+          </div>
+        </div>
+
+        <form id="inventory-add-form" class="inventory-add-block">
+          <fieldset class="choice-fieldset">
+            <legend>Город новой приставки</legend>
+            <div class="console-choice-grid city-choice-grid" id="inv-city-choice">
+              <label class="console-option">
+                <input type="radio" name="inv-city-radio" value="tyumen" checked />
+                <span class="console-option-card"><strong>Тюмень</strong></span>
+              </label>
+              <label class="console-option">
+                <input type="radio" name="inv-city-radio" value="surgut" />
+                <span class="console-option-card"><strong>Сургут</strong></span>
+              </label>
+              <label class="console-option">
+                <input type="radio" name="inv-city-radio" value="nefteyugansk" />
+                <span class="console-option-card"><strong>Нефтеюганск</strong></span>
+              </label>
+            </div>
+            <input type="hidden" name="city" id="inv-city" value="tyumen" />
+          </fieldset>
+          <fieldset class="choice-fieldset">
+            <legend>Тип / модель</legend>
+            <div class="console-choice-grid city-choice-grid" id="inv-type-choice">
+              <label class="console-option">
+                <input type="radio" name="inv-type-radio" value="ps5" checked />
+                <span class="console-option-card"><strong>PS5</strong></span>
+              </label>
+              <label class="console-option">
+                <input type="radio" name="inv-type-radio" value="ps5_pro" />
+                <span class="console-option-card"><strong>PS5 PRO</strong></span>
+              </label>
+              <label class="console-option">
+                <input type="radio" name="inv-type-radio" value="vr2" />
+                <span class="console-option-card"><strong>PS VR2</strong></span>
+              </label>
+            </div>
+            <input type="hidden" name="type" id="inv-type" value="ps5" />
+          </fieldset>
+          <div class="inventory-form">
+            <label class="field">
+              <span>Номер / код</span>
+              <input type="text" name="code" id="inv-code" placeholder="1, 2A…" required />
+            </label>
+            <label class="field">
+              <span>Название</span>
+              <input type="text" name="label" id="inv-label" placeholder="PS5" required />
+            </label>
+            <button type="submit" class="btn btn-gold">Добавить приставку</button>
+          </div>
+          <p class="form-error" id="inventory-error" hidden></p>
+        </form>
+        <div class="table-wrap">
+          <table class="data-table" id="inventory-table">
+            <thead>
+              <tr>
+                <th>Город</th>
+                <th>Тип</th>
+                <th>Код</th>
+                <th>Название</th>
+                <th>Статус</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="inventory-tbody">
+              <tr><td colspan="6" class="empty-cell">Загрузка…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="admin-promos-panel" class="admin-panel" hidden>
+        <form id="promo-create-form" class="inventory-add-block">
+          <p class="admin-filter-label" style="margin-top:0">Новый одноразовый промокод</p>
+          <div class="console-choice-grid city-choice-grid" id="promo-city-choice">
+            <label class="console-option">
+              <input type="radio" name="promo-city-radio" value="" checked />
+              <span>Все города</span>
+            </label>
+            <label class="console-option">
+              <input type="radio" name="promo-city-radio" value="tyumen" />
+              <span>Тюмень</span>
+            </label>
+            <label class="console-option">
+              <input type="radio" name="promo-city-radio" value="surgut" />
+              <span>Сургут</span>
+            </label>
+            <label class="console-option">
+              <input type="radio" name="promo-city-radio" value="nefteyugansk" />
+              <span>Нефтеюганск</span>
+            </label>
+          </div>
+          <input type="hidden" name="city" id="promo-city" value="" />
+          <div class="inventory-form">
+            <label class="field">
+              <span>Скидка</span>
+              <select id="promo-percent" name="percent">
+                <option value="10">10%</option>
+                <option value="15" selected>15%</option>
+                <option value="20">20%</option>
+                <option value="25">25%</option>
+                <option value="30">30%</option>
+                <option value="40">40%</option>
+                <option value="50">50%</option>
+              </select>
+            </label>
+            <button type="submit" class="btn btn-gold">Сгенерировать</button>
+          </div>
+          <p class="form-error" id="promo-error" hidden></p>
+          <p class="form-hint" id="promo-last" hidden></p>
+        </form>
+        <div class="table-wrap">
+          <table class="data-table" id="promos-table">
+            <thead>
+              <tr>
+                <th>Код</th>
+                <th>Город</th>
+                <th>Скидка</th>
+                <th>Статус</th>
+                <th>Кто создал</th>
+                <th>Использован</th>
+              </tr>
+            </thead>
+            <tbody id="promos-tbody">
+              <tr><td colspan="6" class="empty-cell">Промокодов пока нет</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" hidden role="status"></div>
+
+  <div class="modal" id="admin-password-modal" hidden>
+    <div class="modal-card">
+      <h3>Смените пароль</h3>
+      <p>При первом входе нужно задать новый пароль. Без этого панель недоступна.</p>
+      <form id="admin-password-form" class="auth-form">
+        <label class="field">
+          <span>Новый пароль</span>
+          <input type="password" id="admin-new-password" required minlength="5" autocomplete="new-password" />
+        </label>
+        <label class="field">
+          <span>Повторите пароль</span>
+          <input type="password" id="admin-new-password2" required minlength="5" autocomplete="new-password" />
+        </label>
+        <p class="form-error" id="admin-password-error" hidden></p>
+        <button type="submit" class="btn btn-gold">Сохранить пароль</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="console-info-modal" hidden>
+    <div class="modal-card">
+      <h3>Приставка в аренде</h3>
+      <div id="console-info-body" class="console-info-body"></div>
+      <button type="button" class="btn btn-gold" id="console-info-close">Закрыть</button>
+    </div>
+  </div>
+
+  <div class="modal" id="oferta-modal" hidden>
+    <div class="modal-card legal-modal-card">
+      <h3>Публичная оферта (договор проката)</h3>
+      <div class="legal-doc">
+        <p>о предоставлении во временное пользование игрового оборудования сервиса «Приставка рядом»</p>
+        <p>Настоящий документ представляет собой официальное предложение (Публичную оферту) Арендодателя заключить договор проката игрового оборудования с любым дееспособным физическим лицом (далее — Арендатор) на изложенных ниже условиях. В соответствии с п. 2 ст. 437 Гражданского кодекса Российской Федерации (ГК РФ), в случае принятия изложенных ниже условий и совершения действий по акцепту, лицо, производящее акцепт настоящей Оферты, становится Арендатором.</p>
+        <p><strong>1. Термины и определения</strong></p>
+        <p>1.1. Сайт — официальный веб-сайт сервиса проката «Приставка рядом».</p>
+        <p>1.2. Оборудование — игровые консоли (включая PlayStation 5 Slim), геймпады, кабели, сумки для переноски и иное сопутствующее имущество, предлагаемое к прокату на Сайте.</p>
+        <p>1.3. Акцепт Оферты — полное и безоговорочное согласие Арендатора с условиями настоящей Оферты (п. 1 ст. 438 ГК РФ).</p>
+        <p><strong>2. Предмет договора</strong></p>
+        <p>2.1. Арендодатель обязуется предоставить Арендатору за плату во временное владение и пользование (прокат) Оборудование, а Арендатор обязуется принять Оборудование, оплатить прокат и своевременно вернуть Оборудование в исправном состоянии.</p>
+        <p>2.2. Конкретный перечень Оборудования (включая, но не ограничиваясь: консоль PlayStation 5 Slim, геймпады DualSense 2 шт., комплект кабелей, сумка для переноски), срок проката, место эксплуатации и стоимость определяются Арендатором при оформлении заказа на Сайте и фиксируются в электронном Акте приема-передачи.</p>
+        <p>2.3. Оценочная стоимость стандартного комплекта оборудования составляет 83 000 (восемьдесят три тысячи) рублей.</p>
+        <p><strong>3. Порядок акцепта и электронная подпись</strong></p>
+        <p>3.1. Акцепт настоящей Оферты осуществляется путем проставления Арендатором галочки (чекбокса) «Соглашаюсь с условиями публичной оферты и обработки персональных данных» при оформлении заказа на Сайте.</p>
+        <p>3.2. Стороны признают, что проставление галочки в чекбоксе на Сайте признается простой электронной подписью (ПЭП) Арендатора, равнозначной собственноручной подписи на бумажном носителе, и означает полное ознакомление и согласие со всеми пунктами настоящего договора.</p>
+        <p>3.3. Принимая условия Оферты, Арендатор дает согласие на обработку своих персональных данных (ФИО, паспортные данные, адрес регистрации/проживания, номер телефона) в целях исполнения настоящего договора.</p>
+        <p><strong>4. Права и обязанности сторон</strong></p>
+        <p>4.1. Арендодатель обязуется:</p>
+        <p>4.1.1. Передать Арендатору Оборудование в исправном состоянии.</p>
+        <p>4.2. Арендатор обязуется:</p>
+        <p>4.2.1. Использовать Оборудование исключительно для игровых (личных) целей.</p>
+        <p>4.2.2. Эксплуатировать Оборудование строго по адресу, указанному при оформлении заказа на Сайте.</p>
+        <p>4.2.3. Не перемещать Оборудование по иному адресу без предварительного согласования с Арендодателем.</p>
+        <p>4.2.4. Возвратить комплект Оборудования Арендодателю до 16:00 последнего расчетного дня аренды.</p>
+        <p><strong>5. Финансовые условия</strong></p>
+        <p>5.1. Арендная плата рассчитывается исходя из тарифов, размещенных на Сайте, и выбранного Арендатором срока проката.</p>
+        <p>5.2. Оплата производится Арендатором в полном объеме (100% предоплата) до момента фактической передачи Оборудования.</p>
+        <p>5.3. При продлении срока аренды Арендодателем вносятся соответствующие изменения в заказ, а Арендатор обязан произвести доплату.</p>
+        <p><strong>6. Ответственность и штрафные санкции</strong></p>
+        <p>6.1. За неисполнение или ненадлежащее исполнение обязательств Арендатор несет следующую ответственность:</p>
+        <p>Штраф в размере 500 руб. — за возврат Оборудования позднее 16:00 расчетного дня (при отсутствии уважительной причины и/или предварительного согласования с Арендодателем).</p>
+        <p>Штраф в размере 1 000 руб. за каждый день — за просрочку возврата Оборудования свыше 1 (одного) дня.</p>
+        <p>Штраф в размере 2 500 руб. — за несанкционированное перемещение Оборудования с согласованного адреса эксплуатации.</p>
+        <p>Штраф в размере 5 000 руб. — за нецелевое использование Оборудования.</p>
+        <p>6.2. В случае утери, хищения или полной конструктивной гибели (порчи) Оборудования по вине Арендатора, последний обязан возместить Арендодателю полную оценочную стоимость комплекта.</p>
+        <p><strong>7. Разрешение споров</strong></p>
+        <p>7.1. Стороны примут все меры для разрешения возникающих споров путем мирных переговоров.</p>
+        <p>7.2. При недостижении согласия спор подлежит рассмотрению в судебном порядке по месту нахождения Арендодателя в соответствии с действующим законодательством РФ.</p>
+        <p><strong>8. Заключительные положения</strong></p>
+        <p>8.1. Настоящая Оферта вступает в силу с момента ее публикации на Сайте и действует до ее отзыва Арендодателем.</p>
+        <p>8.2. Фактическая передача Оборудования фиксируется в электронном или бумажном Акте приема-передачи, который является неотъемлемой частью настоящего договора. Подписывая Акт (или принимая его в электронном виде), Арендатор подтверждает, что с правилами эксплуатации ознакомлен и претензий к состоянию Оборудования не имеет.</p>
+        <p><strong>9. Реквизиты Арендодателя</strong></p>
+        <p>Индивидуальный предприниматель Муравьева Ирина Николаевна</p>
+        <p>ИНН: 860404947816</p>
+        <p>ОГРНИП: 325861700060749</p>
+        <p>Телефон: <a href="tel:+79933465152">+7 (993) 346-51-52</a></p>
+        <p>E-mail: <a href="mailto:PristavkaRyadom@yandex.ru">PristavkaRyadom@yandex.ru</a></p>
+        <p><a href="docs/Oferta_Pristavka_Ryadom.pdf" target="_blank" rel="noopener">Скачать оферту в PDF</a></p>
+      </div>
+      <button type="button" class="btn btn-gold js-close-legal" data-close-modal="oferta-modal">Закрыть</button>
+    </div>
+  </div>
+
+  <div class="modal" id="privacy-modal" hidden>
+    <div class="modal-card legal-modal-card">
+      <h3>Политика конфиденциальности</h3>
+      <div class="legal-doc">
+        <p>Оператор персональных данных — индивидуальный предприниматель Муравьева Ирина Николаевна (ИНН 860404947816, ОГРНИП 325861700060749). Контакт для обращений субъектов ПДн: <a href="mailto:PristavkaRyadom@yandex.ru">PristavkaRyadom@yandex.ru</a>, тел. <a href="tel:+79933465152">+7 (993) 346-51-52</a>.</p>
+        <p><strong>1. Какие данные обрабатываем.</strong> ФИО, номер телефона, адрес доставки (если указан), данные заказов, комментарии к заявке, технические данные (cookies / localStorage для сессии на сайте).</p>
+        <p><strong>2. Цели.</strong> Регистрация и вход; оформление и исполнение договора аренды; связь с клиентом; направление экземпляра договора; уведомление администратора о заявке; восстановление пароля по SMS; учёт лояльности и отзывов.</p>
+        <p><strong>3. Правовые основания.</strong> Согласие субъекта (ст. 6, 9 152-ФЗ); исполнение договора, стороной которого является субъект; законные интересы оператора в пределах, не нарушающих права субъекта.</p>
+        <p><strong>4. Передача.</strong> Данные заказа могут направляться в сервис уведомлений (Telegram) администратору и на электронную почту <a href="mailto:PristavkaRyadom@yandex.ru">PristavkaRyadom@yandex.ru</a> для учёта договора. SMS-код восстановления пароля передаётся провайдеру SMS.ru. Данные не продаём.</p>
+        <p><strong>5. Срок.</strong> Пока действует учётная запись и в течение сроков хранения, необходимых для исполнения договора и требований закона (в том числе бухгалтерских и претензионных).</p>
+        <p><strong>6. Права.</strong> Вы вправе запросить сведения об обработке, исправление, ограничение, отзыв согласия и удаление данных, если это не противоречит закону, направив обращение на указанную почту.</p>
+        <p><strong>7. Cookies.</strong> Сайт использует локальное хранилище браузера для сессии входа. Продолжая пользоваться сайтом, вы соглашаетесь с этим.</p>
+      </div>
+      <button type="button" class="btn btn-gold js-close-legal" data-close-modal="privacy-modal">Закрыть</button>
+    </div>
+  </div>
+
+  <div class="modal" id="success-modal" hidden>
+    <div class="modal-card">
+      <div class="modal-icon" aria-hidden="true">✓</div>
+      <h3>Заявка отправлена</h3>
+      <p id="success-text"></p>
+      <button type="button" class="btn btn-gold" id="success-close">Готово</button>
+    </div>
+  </div>
+
+  <div class="modal" id="review-modal" hidden>
+    <div class="modal-card review-modal-card">
+      <h3>Оцените аренду</h3>
+      <p id="review-order-hint">Ваша аренда завершена. Поставьте оценку и напишите короткий отзыв.</p>
+      <div class="star-rating" id="star-rating" role="radiogroup" aria-label="Оценка от 1 до 5">
+        <button type="button" class="star-btn" data-star="1" aria-label="1 звезда">★</button>
+        <button type="button" class="star-btn" data-star="2" aria-label="2 звезды">★</button>
+        <button type="button" class="star-btn" data-star="3" aria-label="3 звезды">★</button>
+        <button type="button" class="star-btn" data-star="4" aria-label="4 звезды">★</button>
+        <button type="button" class="star-btn" data-star="5" aria-label="5 звёзд">★</button>
+      </div>
+      <label class="field">
+        <span>Комментарий</span>
+        <textarea id="review-comment" rows="4" maxlength="800" placeholder="Что понравилось? Что можно улучшить?"></textarea>
+      </label>
+      <p class="form-error" id="review-error" hidden></p>
+      <div class="review-actions">
+        <button type="button" class="btn btn-ghost" id="review-skip">Позже</button>
+        <button type="button" class="btn btn-gold" id="review-submit">Отправить отзыв</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="site-footer-brand">Приставка рядом</p>
+    <p>ИП Муравьева Ирина Николаевна</p>
+    <p>ИНН 860404947816 · ОГРНИП 325861700060749</p>
+    <p>Телефон: <a href="tel:+79933465152">+7 (993) 346-51-52</a></p>
+    <p>Почта для связи и подписанных договоров: <a href="mailto:PristavkaRyadom@yandex.ru">PristavkaRyadom@yandex.ru</a></p>
+    <p class="site-footer-links">
+      <button type="button" class="link-btn js-open-oferta">Договор оферты</button>
+      <a class="link-btn" href="docs/Oferta_Pristavka_Ryadom.pdf" target="_blank" rel="noopener">Оферта PDF</a>
+      <button type="button" class="link-btn js-open-privacy">Политика конфиденциальности</button>
+    </p>
+  </footer>
+
+  </div><!-- /#app-shell -->
+
+  <!-- inject:main-js -->
+  <script src="js/main.js" defer></script>
+  <!-- /inject:main-js -->
+</body>
+</html>

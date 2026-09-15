@@ -1,0 +1,4 @@
+/api/notify-order  /.netlify/functions/notify-order  200
+/api/orders  /.netlify/functions/orders  200
+/api/admin  /.netlify/functions/admin-api  200
+/api/auth  /.netlify/functions/auth  200

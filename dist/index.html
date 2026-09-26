@@ -1466,7 +1466,21 @@ a.link-btn {
   border-radius: var(--radius);
   background: #0a0a0a;
   border: 2px solid #1a1a1a;
+  overflow: hidden;
   transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.product-card-box img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.product-card:hover .product-card-box img,
+.product-card:focus-visible .product-card-box img {
+  transform: scale(1.04);
 }
 
 .product-card:hover .product-card-box,
@@ -2974,13 +2988,12 @@ body.intro-done #app-shell {
         <form id="login-form" class="auth-form" autocomplete="on">
           <label class="field">
             <span>Телефон</span>
-            <input type="text" name="login" id="login-login" placeholder="79026936225" required />
+            <input type="tel" name="login" id="login-login" placeholder="79XXXXXXXXX" inputmode="tel" required />
           </label>
           <label class="field">
             <span>Пароль</span>
             <input type="password" name="password" id="login-password" placeholder="••••••••" required minlength="5" />
           </label>
-          <p class="form-hint">Клиент (тест): <strong>79026936225</strong> / <strong>12345678</strong></p>
           <p class="form-error" id="login-error" hidden></p>
           <button type="submit" class="btn btn-gold">Войти</button>
           <p class="form-hint auth-forgot-wrap">
@@ -3056,15 +3069,21 @@ body.intro-done #app-shell {
 
         <nav class="product-cards" id="product-cards" aria-label="Каталог аренды">
           <button type="button" class="product-card" data-product="ps5">
-            <div class="product-card-box" aria-hidden="true"></div>
+            <div class="product-card-box" aria-hidden="true">
+              <img src="img/categories/ps5.jpg" alt="" width="960" height="720" loading="lazy" decoding="async" />
+            </div>
             <p class="product-card-label">🔥 PS5/PS5 PRO</p>
           </button>
           <button type="button" class="product-card" data-product="vr2">
-            <div class="product-card-box" aria-hidden="true"></div>
+            <div class="product-card-box" aria-hidden="true">
+              <img src="img/categories/vr2.jpg" alt="" width="960" height="720" loading="lazy" decoding="async" />
+            </div>
             <p class="product-card-label">🔥 VR2</p>
           </button>
           <button type="button" class="product-card" data-product="periphery">
-            <div class="product-card-box" aria-hidden="true"></div>
+            <div class="product-card-box" aria-hidden="true">
+              <img src="img/categories/periphery.jpg" alt="" width="960" height="720" loading="lazy" decoding="async" />
+            </div>
             <p class="product-card-label">🔥 Периферия</p>
           </button>
         </nav>
@@ -4192,12 +4211,7 @@ body.intro-done #app-shell {
     },
   ];
 
-  const TEST_CLIENT = {
-    fio: "Тестовый Пользователь",
-    phone: "79026936225",
-    password: "12345678",
-    loyaltyStatus: "standard",
-  };
+  const RETIRED_TEST_PHONE = "79026936225";
 
   function readJson(key, fallback) {
     try {
@@ -4219,12 +4233,18 @@ body.intro-done #app-shell {
   }
 
   function ensureSeedUsers() {
+    return readJson(KEYS.users, []);
+  }
+
+  /** Убирает бывший тестовый аккаунт, который раньше создавался у каждого посетителя. */
+  function removeRetiredTestUser() {
     const users = readJson(KEYS.users, []);
-    if (!users.some((u) => u.phone === TEST_CLIENT.phone)) {
-      users.push({ ...TEST_CLIENT });
-      writeJson(KEYS.users, users);
+    const kept = users.filter((u) => normalizePhone(u.phone) !== RETIRED_TEST_PHONE);
+    if (kept.length !== users.length) writeJson(KEYS.users, kept);
+    const session = readJson(KEYS.session, null);
+    if (session && normalizePhone(session.phone) === RETIRED_TEST_PHONE) {
+      localStorage.removeItem(KEYS.session);
     }
-    return users;
   }
 
   function ensureSeedOccupied() {
@@ -5598,7 +5618,7 @@ body.intro-done #app-shell {
   }
 
   migrateUsers();
-  ensureSeedUsers();
+  removeRetiredTestUser();
   ensureSeedOccupied();
   ensureAdmins();
 

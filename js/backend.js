@@ -71,12 +71,7 @@
     },
   ];
 
-  const TEST_CLIENT = {
-    fio: "Тестовый Пользователь",
-    phone: "79026936225",
-    password: "12345678",
-    loyaltyStatus: "standard",
-  };
+  const RETIRED_TEST_PHONE = "79026936225";
 
   function readJson(key, fallback) {
     try {
@@ -98,12 +93,18 @@
   }
 
   function ensureSeedUsers() {
+    return readJson(KEYS.users, []);
+  }
+
+  /** Убирает бывший тестовый аккаунт, который раньше создавался у каждого посетителя. */
+  function removeRetiredTestUser() {
     const users = readJson(KEYS.users, []);
-    if (!users.some((u) => u.phone === TEST_CLIENT.phone)) {
-      users.push({ ...TEST_CLIENT });
-      writeJson(KEYS.users, users);
+    const kept = users.filter((u) => normalizePhone(u.phone) !== RETIRED_TEST_PHONE);
+    if (kept.length !== users.length) writeJson(KEYS.users, kept);
+    const session = readJson(KEYS.session, null);
+    if (session && normalizePhone(session.phone) === RETIRED_TEST_PHONE) {
+      localStorage.removeItem(KEYS.session);
     }
-    return users;
   }
 
   function ensureSeedOccupied() {
@@ -1477,7 +1478,7 @@
   }
 
   migrateUsers();
-  ensureSeedUsers();
+  removeRetiredTestUser();
   ensureSeedOccupied();
   ensureAdmins();
 

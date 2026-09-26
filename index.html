@@ -128,13 +128,12 @@
         <form id="login-form" class="auth-form" autocomplete="on">
           <label class="field">
             <span>Телефон</span>
-            <input type="text" name="login" id="login-login" placeholder="79026936225" required />
+            <input type="tel" name="login" id="login-login" placeholder="79XXXXXXXXX" inputmode="tel" required />
           </label>
           <label class="field">
             <span>Пароль</span>
             <input type="password" name="password" id="login-password" placeholder="••••••••" required minlength="5" />
           </label>
-          <p class="form-hint">Клиент (тест): <strong>79026936225</strong> / <strong>12345678</strong></p>
           <p class="form-error" id="login-error" hidden></p>
           <button type="submit" class="btn btn-gold">Войти</button>
           <p class="form-hint auth-forgot-wrap">
@@ -210,15 +209,21 @@
 
         <nav class="product-cards" id="product-cards" aria-label="Каталог аренды">
           <button type="button" class="product-card" data-product="ps5">
-            <div class="product-card-box" aria-hidden="true"></div>
+            <div class="product-card-box" aria-hidden="true">
+              <img src="img/categories/ps5.jpg" alt="" width="960" height="720" loading="lazy" decoding="async" />
+            </div>
             <p class="product-card-label">🔥 PS5/PS5 PRO</p>
           </button>
           <button type="button" class="product-card" data-product="vr2">
-            <div class="product-card-box" aria-hidden="true"></div>
+            <div class="product-card-box" aria-hidden="true">
+              <img src="img/categories/vr2.jpg" alt="" width="960" height="720" loading="lazy" decoding="async" />
+            </div>
             <p class="product-card-label">🔥 VR2</p>
           </button>
           <button type="button" class="product-card" data-product="periphery">
-            <div class="product-card-box" aria-hidden="true"></div>
+            <div class="product-card-box" aria-hidden="true">
+              <img src="img/categories/periphery.jpg" alt="" width="960" height="720" loading="lazy" decoding="async" />
+            </div>
             <p class="product-card-label">🔥 Периферия</p>
           </button>
         </nav>

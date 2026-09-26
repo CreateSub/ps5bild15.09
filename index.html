@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Приставка рядом — Аренда PlayStation 5</title>
+  <meta name="theme-color" content="#0e2831" />
+  <link rel="icon" type="image/png" href="img/brand/favicon.png" />
+  <link rel="apple-touch-icon" href="img/brand/favicon.png" />
+  <link rel="preload" href="img/fonts/inter-cyrillic-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="img/fonts/inter-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin />
   <!-- inject:css -->
   <link rel="stylesheet" href="styles.css" />
   <!-- /inject:css -->
@@ -25,9 +30,9 @@
             <stop offset="1" stop-color="#eef0f4"/>
           </linearGradient>
           <linearGradient id="lightBar" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#e8eaff"/>
-            <stop offset=".5" stop-color="#8b93ff"/>
-            <stop offset="1" stop-color="#5a62e8"/>
+            <stop offset="0" stop-color="#eaf4f3"/>
+            <stop offset=".5" stop-color="#8dc2c0"/>
+            <stop offset="1" stop-color="#306879"/>
           </linearGradient>
           <filter id="blueGlow">
             <feGaussianBlur stdDeviation="3.5" result="blur"/>
@@ -89,19 +94,22 @@
         <i class="intro-shard"></i><i class="intro-shard"></i><i class="intro-shard"></i><i class="intro-shard"></i>
       </div>
 
-      <div class="intro-logo"><b>Приставка</b> рядом</div>
-      <div class="intro-tag">PLAY · RENT · EXPERIENCE</div>
+      <div class="intro-logo">
+        <img class="intro-logo-mark" src="img/brand/logo-mark.png" alt="" width="310" height="360" />
+        <span><b>Приставка</b> <span>рядом</span></span>
+      </div>
+      <div class="intro-tag">Играй сегодня</div>
     </div>
   </div>
 
   <!-- ========== MAIN APP (replace this shell freely — intro stays untouched) ========== -->
   <div id="app-shell" aria-hidden="true">
-  <div class="bg-glow" aria-hidden="true"></div>
-  <div class="bg-grid" aria-hidden="true"></div>
-
   <header class="site-header">
     <div class="brand">
-      <h1 id="site-logo" class="site-logo"><b>Приставка</b> рядом</h1>
+      <h1 id="site-logo" class="site-logo">
+        <img class="site-logo-mark" src="img/brand/logo-mark.png" alt="" width="310" height="360" />
+        <span class="site-logo-text"><b>Приставка</b> <span>рядом</span></span>
+      </h1>
     </div>
     <div class="header-actions" id="header-actions" hidden>
       <button type="button" class="btn btn-ghost" id="cabinet-btn" hidden>Кабинет</button>
@@ -113,10 +121,17 @@
   <main>
     <!-- ========== CLIENT AUTH / LANDING ========== -->
     <section class="auth-screen" id="auth-screen">
+      <svg class="hero-decor" viewBox="0 0 260 170" fill="none" aria-hidden="true">
+        <path d="M14 128 A100 100 0 0 1 196 118" stroke="#df1820" stroke-width="10" />
+        <line x1="128" y1="6" x2="254" y2="132" stroke="#306879" stroke-width="13" />
+        <line x1="160" y1="10" x2="246" y2="96" stroke="#8dc2c0" stroke-width="7" />
+      </svg>
       <div class="hero">
-        <p class="hero-kicker">Аренда игровой консоли</p>
-        <h2 class="hero-brand">Приставка рядом</h2>
-        <p class="hero-lead">PlayStation&nbsp;5 от 599&nbsp;₽ / сутки. Зарегистрируйтесь, выберите категорию и оформите аренду — менеджер свяжется с вами.</p>
+        <p class="hero-kicker">Аренда PlayStation</p>
+        <h2 class="hero-brand">Приставка <span>рядом</span></h2>
+        <p class="hero-slogan">Играй сегодня</p>
+        <p class="hero-lead">Нужна консоль на вечер? Привезём, подключим — и можно играть. PlayStation&nbsp;5 от 599&nbsp;₽ / сутки.</p>
+        <p class="hero-offer">PS5 • 2 геймпада • бронирование онлайн</p>
       </div>
 
       <div class="auth-panel">
@@ -135,7 +150,7 @@
             <input type="password" name="password" id="login-password" placeholder="••••••••" required minlength="5" />
           </label>
           <p class="form-error" id="login-error" hidden></p>
-          <button type="submit" class="btn btn-gold">Войти</button>
+          <button type="submit" class="btn btn-primary">Войти</button>
           <p class="form-hint auth-forgot-wrap">
             <button type="button" class="link-btn" id="forgot-password-btn">Забыли пароль?</button>
           </p>
@@ -148,7 +163,7 @@
             <input type="text" name="phone" id="reset-phone" placeholder="79XXXXXXXXX" required />
           </label>
           <p class="form-error" id="reset-request-error" hidden></p>
-          <button type="submit" class="btn btn-gold">Отправить код</button>
+          <button type="submit" class="btn btn-primary">Отправить код</button>
           <button type="button" class="btn btn-ghost" id="reset-back-login">Назад ко входу</button>
         </form>
 
@@ -167,7 +182,7 @@
             <input type="password" name="password2" id="reset-password2" required minlength="5" autocomplete="new-password" />
           </label>
           <p class="form-error" id="reset-confirm-error" hidden></p>
-          <button type="submit" class="btn btn-gold">Сохранить пароль</button>
+          <button type="submit" class="btn btn-primary">Сохранить пароль</button>
           <button type="button" class="btn btn-ghost" id="reset-resend-btn">Отправить код ещё раз</button>
         </form>
 
@@ -193,7 +208,7 @@
             <span>Я согласен на обработку персональных данных согласно <button type="button" class="link-btn js-open-privacy">политике конфиденциальности</button></span>
           </label>
           <p class="form-error" id="register-error" hidden></p>
-          <button type="submit" class="btn btn-gold">Зарегистрироваться</button>
+          <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
         </form>
       </div>
     </section>
@@ -464,7 +479,7 @@
               </div>
 
               <p class="form-error" id="order-error" hidden></p>
-              <button type="submit" class="btn btn-gold" id="order-btn" disabled>Оформить заказ</button>
+              <button type="submit" class="btn btn-primary" id="order-btn" disabled>Оформить заказ</button>
             </form>
           </div>
         </div>
@@ -654,7 +669,7 @@
             <input type="hidden" name="endDate" id="client-end-date" />
           </div>
 
-          <button type="submit" class="btn btn-gold">Добавить клиента и заявку</button>
+          <button type="submit" class="btn btn-primary">Добавить клиента и заявку</button>
           <p class="form-error" id="client-add-error" hidden></p>
         </form>
         <div class="table-wrap">
@@ -738,7 +753,7 @@
               <span>Название</span>
               <input type="text" name="label" id="inv-label" placeholder="PS5" required />
             </label>
-            <button type="submit" class="btn btn-gold">Добавить приставку</button>
+            <button type="submit" class="btn btn-primary">Добавить приставку</button>
           </div>
           <p class="form-error" id="inventory-error" hidden></p>
         </form>
@@ -796,7 +811,7 @@
                 <option value="50">50%</option>
               </select>
             </label>
-            <button type="submit" class="btn btn-gold">Сгенерировать</button>
+            <button type="submit" class="btn btn-primary">Сгенерировать</button>
           </div>
           <p class="form-error" id="promo-error" hidden></p>
           <p class="form-hint" id="promo-last" hidden></p>
@@ -838,7 +853,7 @@
           <input type="password" id="admin-new-password2" required minlength="5" autocomplete="new-password" />
         </label>
         <p class="form-error" id="admin-password-error" hidden></p>
-        <button type="submit" class="btn btn-gold">Сохранить пароль</button>
+        <button type="submit" class="btn btn-primary">Сохранить пароль</button>
       </form>
     </div>
   </div>
@@ -847,7 +862,7 @@
     <div class="modal-card">
       <h3>Приставка в аренде</h3>
       <div id="console-info-body" class="console-info-body"></div>
-      <button type="button" class="btn btn-gold" id="console-info-close">Закрыть</button>
+      <button type="button" class="btn btn-primary" id="console-info-close">Закрыть</button>
     </div>
   </div>
 
@@ -902,7 +917,7 @@
         <p>E-mail: <a href="mailto:PristavkaRyadom@yandex.ru">PristavkaRyadom@yandex.ru</a></p>
         <p><a href="docs/Oferta_Pristavka_Ryadom.pdf" target="_blank" rel="noopener">Скачать оферту в PDF</a></p>
       </div>
-      <button type="button" class="btn btn-gold js-close-legal" data-close-modal="oferta-modal">Закрыть</button>
+      <button type="button" class="btn btn-primary js-close-legal" data-close-modal="oferta-modal">Закрыть</button>
     </div>
   </div>
 
@@ -919,7 +934,7 @@
         <p><strong>6. Права.</strong> Вы вправе запросить сведения об обработке, исправление, ограничение, отзыв согласия и удаление данных, если это не противоречит закону, направив обращение на указанную почту.</p>
         <p><strong>7. Cookies.</strong> Сайт использует локальное хранилище браузера для сессии входа. Продолжая пользоваться сайтом, вы соглашаетесь с этим.</p>
       </div>
-      <button type="button" class="btn btn-gold js-close-legal" data-close-modal="privacy-modal">Закрыть</button>
+      <button type="button" class="btn btn-primary js-close-legal" data-close-modal="privacy-modal">Закрыть</button>
     </div>
   </div>
 
@@ -928,7 +943,7 @@
       <div class="modal-icon" aria-hidden="true">✓</div>
       <h3>Заявка отправлена</h3>
       <p id="success-text"></p>
-      <button type="button" class="btn btn-gold" id="success-close">Готово</button>
+      <button type="button" class="btn btn-primary" id="success-close">Готово</button>
     </div>
   </div>
 
@@ -950,13 +965,14 @@
       <p class="form-error" id="review-error" hidden></p>
       <div class="review-actions">
         <button type="button" class="btn btn-ghost" id="review-skip">Позже</button>
-        <button type="button" class="btn btn-gold" id="review-submit">Отправить отзыв</button>
+        <button type="button" class="btn btn-primary" id="review-submit">Отправить отзыв</button>
       </div>
     </div>
   </div>
 
   <footer class="site-footer">
-    <p class="site-footer-brand">Приставка рядом</p>
+    <img class="site-footer-logo" src="img/brand/logo-mark.png" alt="" width="310" height="360" loading="lazy" />
+    <p class="site-footer-brand">Приставка <span>рядом</span></p>
     <p>ИП Муравьева Ирина Николаевна</p>
     <p>ИНН 860404947816 · ОГРНИП 325861700060749</p>
     <p>Телефон: <a href="tel:+79933465152">+7 (993) 346-51-52</a></p>

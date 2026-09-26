@@ -1616,7 +1616,7 @@
               ${options}
             </div>
           </div>
-          <button type="button" class="btn btn-gold" data-assign-confirm="${escapeHtml(o.id)}">Подтвердить</button>
+          <button type="button" class="btn btn-primary" data-assign-confirm="${escapeHtml(o.id)}">Подтвердить</button>
         </div>`;
     }
 
@@ -1657,7 +1657,7 @@
           <div class="order-comments-list">${commentsHtml}</div>
           <form class="order-comment-form" data-comment-form="${escapeHtml(o.id)}">
             <textarea name="comment" maxlength="1000" placeholder="Заметка по заказу…" required></textarea>
-            <button type="submit" class="btn btn-gold">Сохранить комментарий</button>
+            <button type="submit" class="btn btn-primary">Сохранить комментарий</button>
           </form>
         </div>
       </div>

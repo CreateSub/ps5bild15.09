@@ -29,7 +29,7 @@
 }
 
 .product-card:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--teal);
   outline-offset: 4px;
   border-radius: var(--radius);
 }
@@ -38,8 +38,8 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   border-radius: var(--radius);
-  background: #0a0a0a;
-  border: 2px solid #1a1a1a;
+  background: var(--ink);
+  border: 2px solid var(--gray-800);
   overflow: hidden;
   transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
@@ -59,16 +59,16 @@
 
 .product-card:hover .product-card-box,
 .product-card:focus-visible .product-card-box {
-  background: linear-gradient(145deg, rgba(201, 162, 39, 0.18), rgba(201, 162, 39, 0.06));
-  border-color: var(--gold);
-  box-shadow: 0 8px 28px rgba(201, 162, 39, 0.22);
+  background: linear-gradient(145deg, rgba(48, 104, 121, 0.18), rgba(48, 104, 121, 0.06));
+  border-color: var(--teal);
+  box-shadow: 0 8px 28px rgba(48, 104, 121, 0.22);
 }
 
 .product-card-label {
   margin: 0;
   font-size: clamp(0.95rem, 2.5vw, 1.1rem);
   font-weight: 700;
-  color: #fff;
+  color: var(--ink);
   text-align: center;
   letter-spacing: 0.04em;
 }
@@ -98,7 +98,7 @@
 /* —— Отзывы (на месте календаря на главной) —— */
 .reviews-panel {
   background: linear-gradient(165deg, var(--gray-850), var(--gray-900));
-  border: 1px solid rgba(201, 162, 39, 0.22);
+  border: 1px solid rgba(48, 104, 121, 0.22);
   border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: var(--shadow);
@@ -109,9 +109,10 @@
 .games-catalog h3 {
   margin: 0 0 1.25rem;
   font-family: var(--font-display);
+  font-weight: 800;
   font-size: 1.15rem;
-  letter-spacing: 0.08em;
-  color: var(--gold-bright);
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 .promo-carousel {
@@ -125,7 +126,7 @@
 .promo-carousel-track {
   position: relative;
   aspect-ratio: 16 / 9;
-  background: #0a0a0c;
+  background: var(--gray-950);
 }
 
 .promo-slide {
@@ -155,7 +156,7 @@
   justify-content: center;
   gap: 0.75rem;
   padding: 0.65rem 0.75rem;
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--gray-950);
   border-top: 1px solid var(--gray-800);
 }
 
@@ -165,14 +166,14 @@
   border-radius: 8px;
   border: 1px solid var(--gray-700);
   background: var(--gray-900);
-  color: var(--gold-bright);
+  color: var(--teal);
   font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
 }
 
 .promo-carousel-btn:hover {
-  border-color: var(--gold);
+  border-color: var(--teal);
   background: var(--gray-850, #1a1a1f);
 }
 
@@ -192,7 +193,7 @@
 }
 
 .promo-dot.is-active {
-  background: var(--gold-bright);
+  background: var(--teal);
 }
 
 .games-catalog {
@@ -200,7 +201,7 @@
   padding: 1.5rem;
   border-radius: var(--radius);
   background: linear-gradient(165deg, var(--gray-850), var(--gray-900));
-  border: 1px solid rgba(201, 162, 39, 0.22);
+  border: 1px solid rgba(48, 104, 121, 0.22);
   box-shadow: var(--shadow);
 }
 
@@ -228,20 +229,20 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   padding: 0.65rem 0.5rem;
-  border-radius: 8px;
+  border-radius: 999px;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
 
 .games-catalog-tab:hover {
-  border-color: var(--gold-dim);
-  color: var(--gold-bright);
+  border-color: var(--teal);
+  color: var(--teal);
 }
 
 .games-catalog-tab.is-active {
-  border-color: var(--gold);
-  color: var(--gold-bright);
-  background: rgba(201, 162, 39, 0.12);
+  border-color: var(--teal);
+  color: var(--white);
+  background: var(--teal);
 }
 
 .games-search-field {
@@ -256,7 +257,7 @@
 }
 
 .games-catalog-meta a {
-  color: var(--gold-bright);
+  color: var(--teal);
   text-decoration: none;
 }
 
@@ -272,7 +273,7 @@
   gap: 0.5rem;
   max-height: 28rem;
   overflow: auto;
-  scrollbar-color: var(--gold-dim) var(--gray-950);
+  scrollbar-color: var(--aqua) var(--gray-950);
 }
 
 @media (min-width: 640px) {
@@ -308,28 +309,28 @@
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  padding: 0.4rem 0.65rem;
-  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
 
 .games-catalog-item button:hover:not(:disabled) {
-  border-color: var(--gold);
-  color: var(--gold-bright);
-  background: rgba(201, 162, 39, 0.12);
+  border-color: var(--teal);
+  color: var(--teal);
+  background: rgba(48, 104, 121, 0.12);
 }
 
 .games-catalog-item.is-wanted {
-  border-color: rgba(201, 162, 39, 0.45);
-  background: linear-gradient(145deg, rgba(201, 162, 39, 0.12), var(--gray-950));
+  border-color: rgba(48, 104, 121, 0.45);
+  background: linear-gradient(145deg, rgba(48, 104, 121, 0.12), var(--gray-950));
 }
 
 .games-catalog-item button:disabled {
   cursor: default;
-  border-color: var(--gold);
-  color: var(--gold-bright);
-  background: rgba(201, 162, 39, 0.12);
+  border-color: var(--teal);
+  color: var(--teal);
+  background: rgba(48, 104, 121, 0.12);
   opacity: 1;
 }
 
@@ -341,7 +342,7 @@
 #games-wanted-hint,
 #order-wanted-games {
   margin: 0.75rem 0 0;
-  color: var(--gold-bright);
+  color: var(--teal);
   font-size: 0.88rem;
   line-height: 1.45;
 }
@@ -351,7 +352,7 @@
 }
 
 .rate-note-warn {
-  color: var(--gold-bright);
+  color: var(--teal);
   font-weight: 600;
   margin-top: 0.35rem;
 }
@@ -436,7 +437,7 @@
 }
 
 .review-stars {
-  color: var(--gold-bright);
+  color: var(--teal);
   font-size: 0.85rem;
   letter-spacing: 0.1em;
   margin-bottom: 0.5rem;
@@ -464,9 +465,10 @@
 .product-detail-header h2 {
   margin: 0 0 0.35rem;
   font-family: var(--font-display);
+  font-weight: 800;
   font-size: clamp(1.35rem, 3vw, 1.75rem);
-  letter-spacing: 0.06em;
-  color: var(--gold-bright);
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 .product-detail-header p {
@@ -480,8 +482,8 @@
   align-items: center;
   gap: 0.35rem;
   margin-bottom: 1rem;
-  padding: 0.45rem 0.85rem;
-  border-radius: 8px;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
   border: 1px solid var(--gray-700);
   background: transparent;
   color: var(--gray-300);
@@ -493,8 +495,8 @@
 }
 
 .btn-back:hover {
-  border-color: var(--gold);
-  color: var(--gold-bright);
+  border-color: var(--teal);
+  color: var(--teal);
 }
 
 /* —— Комплектация PS5 —— */
@@ -509,9 +511,10 @@
 .extras-section h3 {
   margin: 0 0 0.85rem;
   font-family: var(--font-display);
+  font-weight: 800;
   font-size: 0.95rem;
-  letter-spacing: 0.08em;
-  color: var(--gold-bright);
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 .kit-grid {
@@ -537,7 +540,7 @@
   height: 2rem;
   display: grid;
   place-items: center;
-  color: var(--gold);
+  color: var(--teal);
 }
 
 .kit-icon svg {
@@ -571,8 +574,8 @@
 }
 
 .extras-list .checkbox-row:has(input:checked) {
-  border-color: rgba(201, 162, 39, 0.45);
-  background: rgba(201, 162, 39, 0.06);
+  border-color: rgba(48, 104, 121, 0.45);
+  background: rgba(48, 104, 121, 0.06);
 }
 
 .extras-hint {
@@ -582,7 +585,7 @@
   line-height: 1.45;
 }
 
-.order-form .btn-gold {
+.order-form .btn-primary {
   margin-top: 0.5rem;
 }
 
@@ -596,9 +599,10 @@
 .console-choice h3 {
   margin: 0 0 0.85rem;
   font-family: var(--font-display);
+  font-weight: 800;
   font-size: 0.95rem;
-  letter-spacing: 0.08em;
-  color: var(--gold-bright);
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 .console-choice-grid {
@@ -630,7 +634,7 @@
 }
 
 .console-option-card strong {
-  color: #fff;
+  color: var(--ink);
   font-size: 1rem;
   letter-spacing: 0.04em;
 }
@@ -641,13 +645,13 @@
 }
 
 .console-option input:checked + .console-option-card {
-  border-color: var(--gold);
-  background: rgba(201, 162, 39, 0.08);
-  box-shadow: 0 0 0 1px rgba(201, 162, 39, 0.25);
+  border-color: var(--teal);
+  background: rgba(48, 104, 121, 0.08);
+  box-shadow: 0 0 0 1px rgba(48, 104, 121, 0.25);
 }
 
 .console-option:hover .console-option-card {
-  border-color: rgba(201, 162, 39, 0.45);
+  border-color: rgba(48, 104, 121, 0.45);
 }
 
 @media (max-width: 480px) {
@@ -670,20 +674,20 @@
 }
 
 .status-pill.status-pending {
-  background: rgba(201, 162, 39, 0.15);
-  color: var(--gold-bright);
-  border: 1px solid rgba(201, 162, 39, 0.35);
+  background: rgba(48, 104, 121, 0.15);
+  color: var(--teal);
+  border: 1px solid rgba(48, 104, 121, 0.35);
 }
 
 .status-pill.status-issued {
   background: rgba(56, 160, 120, 0.18);
-  color: #6ed4a8;
+  color: #1d7a52;
   border: 1px solid rgba(56, 160, 120, 0.4);
 }
 
 .status-pill.status-rejected {
   background: rgba(180, 60, 60, 0.18);
-  color: #f0a0a0;
+  color: #b3261e;
   border: 1px solid rgba(180, 60, 60, 0.4);
 }
 
@@ -703,9 +707,9 @@
 .admin-action-btn {
   padding: 0.35rem 0.65rem;
   border-radius: 8px;
-  border: 1px solid rgba(201, 162, 39, 0.45);
-  background: rgba(201, 162, 39, 0.12);
-  color: var(--gold-bright);
+  border: 1px solid rgba(48, 104, 121, 0.45);
+  background: rgba(48, 104, 121, 0.12);
+  color: var(--teal);
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 600;
@@ -714,14 +718,14 @@
 }
 
 .admin-action-btn:hover {
-  background: rgba(201, 162, 39, 0.22);
-  border-color: var(--gold);
+  background: rgba(48, 104, 121, 0.22);
+  border-color: var(--teal);
 }
 
 .admin-action-btn.admin-action-danger {
   border-color: rgba(180, 60, 60, 0.45);
   background: rgba(180, 60, 60, 0.12);
-  color: #f0a0a0;
+  color: #b3261e;
 }
 
 .admin-action-btn.admin-action-danger:hover {
@@ -756,16 +760,16 @@
 }
 
 .star-btn:hover {
-  border-color: rgba(201, 162, 39, 0.5);
-  color: var(--gold-dim);
+  border-color: rgba(48, 104, 121, 0.5);
+  color: var(--aqua);
   transform: translateY(-1px);
 }
 
 .star-btn.is-active {
-  color: var(--gold-bright);
-  border-color: var(--gold);
-  background: rgba(201, 162, 39, 0.12);
-  text-shadow: 0 0 10px var(--gold-glow);
+  color: var(--teal);
+  border-color: var(--teal);
+  background: rgba(48, 104, 121, 0.12);
+  text-shadow: 0 0 10px rgba(48, 104, 121, 0.18);
 }
 
 .review-actions {
@@ -792,7 +796,7 @@
   border-radius: 10px;
   border: 1px solid var(--gray-800);
   background: var(--gray-950);
-  color: #fff;
+  color: var(--ink);
   font: inherit;
   box-sizing: border-box;
 }
@@ -814,7 +818,7 @@
   border-radius: 10px;
   border: 1px solid var(--gray-800);
   background: var(--gray-950);
-  color: #fff;
+  color: var(--ink);
   font: inherit;
   box-sizing: border-box;
 }
@@ -847,7 +851,7 @@
 .cabinet-orders {
   padding: 1.1rem;
   border-radius: var(--radius);
-  border: 1px solid rgba(201, 162, 39, 0.22);
+  border: 1px solid rgba(48, 104, 121, 0.22);
   background: linear-gradient(165deg, var(--gray-850), var(--gray-900));
 }
 
@@ -856,9 +860,10 @@
 .cabinet-promo h3 {
   margin: 0 0 0.85rem;
   font-family: var(--font-display);
+  font-weight: 800;
   font-size: 1.1rem;
-  letter-spacing: 0.06em;
-  color: var(--gold-bright);
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 .cabinet-dl {
@@ -934,7 +939,7 @@
 .loyalty-slide-inner strong {
   display: block;
   margin: 0.45rem 0 0.25rem;
-  color: var(--gold-bright);
+  color: var(--teal);
   font-size: 1.15rem;
 }
 
@@ -943,10 +948,10 @@
   color: var(--gray-300);
 }
 
-.loyalty-slide.bronze { background: radial-gradient(circle at 50% 40%, rgba(205, 127, 50, 0.25), #0a0a0c 70%); }
-.loyalty-slide.silver { background: radial-gradient(circle at 50% 40%, rgba(192, 199, 209, 0.22), #0a0a0c 70%); }
-.loyalty-slide.gold { background: radial-gradient(circle at 50% 40%, rgba(232, 197, 71, 0.28), #0a0a0c 70%); }
-.loyalty-slide.platinum { background: radial-gradient(circle at 50% 40%, rgba(180, 220, 255, 0.22), #0a0a0c 70%); }
+.loyalty-slide.bronze { background: radial-gradient(circle at 50% 40%, rgba(205, 127, 50, 0.25), var(--gray-950) 70%); }
+.loyalty-slide.silver { background: radial-gradient(circle at 50% 40%, rgba(192, 199, 209, 0.22), var(--gray-950) 70%); }
+.loyalty-slide.gold { background: radial-gradient(circle at 50% 40%, rgba(232, 197, 71, 0.28), var(--gray-950) 70%); }
+.loyalty-slide.platinum { background: radial-gradient(circle at 50% 40%, rgba(180, 220, 255, 0.22), var(--gray-950) 70%); }
 
 .cabinet-promo {
   margin-bottom: 1.5rem;

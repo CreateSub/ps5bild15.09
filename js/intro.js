@@ -109,7 +109,7 @@
           const y = centerY + Math.sin(particle.angle) * distance;
 
           ctx.globalAlpha = Math.max(0, Math.min(1, 1 - localTime / 2.6));
-          ctx.fillStyle = particle.speed > 2 ? "#e5b85d" : "#ffffff";
+          ctx.fillStyle = particle.speed > 2 ? "#df1820" : "#ffffff";
           ctx.beginPath();
           ctx.arc(x, y, particle.radius, 0, Math.PI * 2);
           ctx.fill();

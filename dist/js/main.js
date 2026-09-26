@@ -110,7 +110,7 @@
           const y = centerY + Math.sin(particle.angle) * distance;
 
           ctx.globalAlpha = Math.max(0, Math.min(1, 1 - localTime / 2.6));
-          ctx.fillStyle = particle.speed > 2 ? "#e5b85d" : "#ffffff";
+          ctx.fillStyle = particle.speed > 2 ? "#df1820" : "#ffffff";
           ctx.beginPath();
           ctx.arc(x, y, particle.radius, 0, Math.PI * 2);
           ctx.fill();
@@ -3886,7 +3886,7 @@
               ${options}
             </div>
           </div>
-          <button type="button" class="btn btn-gold" data-assign-confirm="${escapeHtml(o.id)}">Подтвердить</button>
+          <button type="button" class="btn btn-primary" data-assign-confirm="${escapeHtml(o.id)}">Подтвердить</button>
         </div>`;
     }
 
@@ -3927,7 +3927,7 @@
           <div class="order-comments-list">${commentsHtml}</div>
           <form class="order-comment-form" data-comment-form="${escapeHtml(o.id)}">
             <textarea name="comment" maxlength="1000" placeholder="Заметка по заказу…" required></textarea>
-            <button type="submit" class="btn btn-gold">Сохранить комментарий</button>
+            <button type="submit" class="btn btn-primary">Сохранить комментарий</button>
           </form>
         </div>
       </div>

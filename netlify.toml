@@ -7,6 +7,9 @@
 [functions]
   directory = "netlify/functions"
 
+[functions."rental-reminders"]
+  schedule = "*/10 * * * *"
+
 [[redirects]]
   from = "/api/notify-order"
   to = "/.netlify/functions/notify-order"

@@ -3,9 +3,10 @@
  * Occupied dates are per-city: "tyumen|2026-08-23"
  *
  * GET  /api/orders?city=tyumen (optional city filter for calendar)
- * POST actions: create | updateStatus | addReview
+ * POST actions: create | updateStatus | extend | addReview
  */
 const { getRentalStore } = require("./lib/store");
+const { DAY_MS, calculateRentalPrice, rentalEndsAt } = require("./lib/rental");
 
 const STORE_NAME = "ps5-rental";
 const ORDERS_KEY = "orders";
@@ -200,6 +201,7 @@ async function handleCreate(s, payload) {
     id: payload.id || `ORD-${Date.now().toString(36).toUpperCase()}`,
     customerName: payload.customerName || "",
     customerPhone: payload.customerPhone,
+    customerVkId: String(payload.customerVkId || "").replace(/\D/g, "") || null,
     city,
     cityLabel: CITIES[city],
     startDate: payload.startDate,
@@ -292,7 +294,10 @@ async function handleUpdateStatus(s, payload) {
   order.updatedAt = new Date().toISOString();
   if (next === "completed") order.completedAt = order.updatedAt;
   if (next === "rejected") order.rejectedAt = order.updatedAt;
-  if (next === "issued") order.issuedAt = order.updatedAt;
+  if (next === "issued") {
+    order.issuedAt = order.updatedAt;
+    order.endsAt = rentalEndsAt(order);
+  }
 
   orders[idx] = order;
   const occupied = rebuildOccupied(orders);
@@ -305,6 +310,80 @@ async function handleUpdateStatus(s, payload) {
     occupied,
     statusLabel: STATUS_LABELS[order.status],
   });
+}
+
+function isDateKey(value) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(value || ""));
+}
+
+function isOrderCustomer(order, payload) {
+  const vkId = String(payload.customerVkId || "").replace(/\D/g, "");
+  if (vkId) {
+    const orderVk = String(order.customerVkId || "").replace(/\D/g, "");
+    if (orderVk === vkId || String(order.customerPhone || "") === `vk:${vkId}`) return true;
+  }
+  const phone = String(payload.customerPhone || "");
+  return Boolean(phone) && String(order.customerPhone || "") === phone;
+}
+
+async function handleExtend(s, payload) {
+  const id = payload.id;
+  const nextEnd = String(payload.endDate || "");
+  if (!id || !isDateKey(nextEnd)) {
+    return json(400, { ok: false, error: "Укажите новую дату окончания аренды" });
+  }
+
+  const orders = await readJson(s, ORDERS_KEY, []);
+  const idx = orders.findIndex((o) => o.id === id);
+  if (idx < 0) return json(404, { ok: false, error: "Заказ не найден" });
+
+  const order = { ...orders[idx] };
+  if (!isOrderCustomer(order, payload)) {
+    return json(403, { ok: false, error: "Продлить может только клиент этого заказа" });
+  }
+  if (order.status !== "issued") {
+    return json(400, { ok: false, error: "Продлить можно только выданную аренду" });
+  }
+  if (nextEnd <= order.endDate) {
+    return json(400, { ok: false, error: "Новая дата должна быть позже текущей" });
+  }
+
+  const range = datesInRange(order.endDate, nextEnd);
+  const city = order.city || "tyumen";
+  const occupied = rebuildOccupied(orders);
+  if (range.some((d) => occupied.includes(occKey(city, d)))) {
+    return json(409, { ok: false, error: "На эти даты консоль уже забронирована" });
+  }
+
+  const days = range.length;
+  const basePrice = calculateRentalPrice(days, order.consoleModel || "ps5");
+  const price = applyDiscount(basePrice, order.loyaltyPercent);
+  const now = new Date().toISOString();
+  const currentEndsAt = rentalEndsAt(order);
+  const extension = {
+    id: `EXT-${Date.now().toString(36).toUpperCase()}`,
+    fromDate: order.endDate,
+    toDate: nextEnd,
+    days,
+    basePrice,
+    price,
+    createdAt: now,
+  };
+
+  order.extensions = [...(Array.isArray(order.extensions) ? order.extensions : []), extension];
+  order.endDate = nextEnd;
+  order.days = (Number(order.days) || 0) + days;
+  order.basePrice = (Number(order.basePrice) || 0) + basePrice;
+  order.totalPrice = (Number(order.totalPrice) || 0) + price;
+  if (currentEndsAt) order.endsAt = new Date(Date.parse(currentEndsAt) + days * DAY_MS).toISOString();
+  order.updatedAt = now;
+
+  orders[idx] = order;
+  const nextOccupied = rebuildOccupied(orders);
+  await s.setJSON(ORDERS_KEY, orders);
+  await s.setJSON(OCCUPIED_KEY, nextOccupied);
+
+  return json(200, { ok: true, order, extension, occupied: nextOccupied });
 }
 
 async function handleAddComment(s, payload) {
@@ -495,6 +574,7 @@ exports.handler = async (event) => {
       return await handleCreate(s, payload);
     }
     if (action === "updateStatus") return await handleUpdateStatus(s, payload);
+    if (action === "extend") return await handleExtend(s, payload);
     if (action === "addComment") return await handleAddComment(s, payload);
     if (action === "createPromo") return await handleCreatePromo(s, payload);
     if (action === "listPromos") return await handleListPromos(s);

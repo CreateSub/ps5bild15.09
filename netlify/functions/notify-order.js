@@ -75,7 +75,7 @@ exports.handler = async (event) => {
 
   const [telegram, vk] = await Promise.allSettled([
     telegramConfigured()
-      ? sendOrderNotification(telegramOrder)
+      ? sendOrderNotification(telegramOrder, title)
       : Promise.reject(new Error("Telegram не настроен")),
     vkConfigured()
       ? sendVkOrderNotification(order, title)

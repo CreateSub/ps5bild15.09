@@ -8,6 +8,12 @@
  *
  * Администратор получит сообщение, только если разрешил сообществу писать ему
  * (написал в сообщения сообщества или нажал «Разрешить сообщения от бота» в мини-приложении).
+ *
+ * Напоминания клиентам (lib: sendVkClientReminder):
+ *   VK_APP_SERVICE_TOKEN — сервисный ключ мини-приложения (уведомления notifications.sendMessage)
+ *   VK_APP_ID            — ID мини-приложения, по умолчанию 54777188
+ * Клиент получит уведомление, если разрешил его в мини-приложении; сообщение от сообщества —
+ * если разрешил сообществу писать ему. Достаточно одного из каналов.
  */
 
 const VK_API = "https://api.vk.com/method/messages.send";
@@ -39,6 +45,11 @@ function formatDate(key) {
   return d && m ? `${d}.${m}.${String(y || "").slice(2)}` : String(key || "");
 }
 
+function lastExtension(order) {
+  const list = Array.isArray(order.extensions) ? order.extensions : [];
+  return list.length ? list[list.length - 1] : null;
+}
+
 function formatVkMessage(order, title) {
   const vkId = orderVkId(order);
   const phone = String(order.customerPhone || "");
@@ -51,6 +62,7 @@ function formatVkMessage(order, title) {
   const discount = Number(order.discountPercent)
     ? `Скидка: ${order.discountPercent}%${order.promoCode ? ` (промо ${order.promoCode})` : ""}`
     : "";
+  const extension = lastExtension(order);
 
   return [
     `🎮 ${title || "Новый заказ"} ${order.id}`,
@@ -60,6 +72,9 @@ function formatVkMessage(order, title) {
     vkId ? `VK: https://vk.com/id${vkId}` : `Телефон: ${phone || "—"}`,
     `Приставка: ${order.consoleLabel || order.productLabel || order.product || "—"}`,
     `Аренда: ${formatDate(order.startDate)} — ${formatDate(order.endDate)} (${order.days} сут.)`,
+    extension
+      ? `Продление: +${extension.days} сут. до ${formatDate(extension.toDate)} · +${Number(extension.price || 0).toLocaleString("ru-RU")} ₽`
+      : null,
     `Сумма: ${total} ₽`,
     discount || null,
     receive,
@@ -107,4 +122,45 @@ async function sendVkOrderNotification(order, title) {
   return { sent, failed };
 }
 
-module.exports = { sendVkOrderNotification, vkConfigured, vkConfig, orderVkId };
+function appConfig() {
+  const serviceToken = String(process.env.VK_APP_SERVICE_TOKEN || "").trim();
+  const appId = String(process.env.VK_APP_ID || "54777188").replace(/\D/g, "");
+  return { serviceToken, appId };
+}
+
+async function sendAppNotification(serviceToken, userId, message, fragment) {
+  const body = new URLSearchParams({
+    user_ids: userId,
+    message: message.slice(0, 254),
+    fragment,
+    random_id: String(Date.now()),
+    access_token: serviceToken,
+    v: VK_VERSION,
+  });
+  const res = await fetch("https://api.vk.com/method/notifications.sendMessage", { method: "POST", body });
+  const data = await res.json().catch(() => ({}));
+  if (data.error) throw new Error(data.error.error_msg || "VK API error");
+  const item = Array.isArray(data.response) ? data.response[0] : null;
+  if (item && item.status === false) {
+    throw new Error((item.error && item.error.description) || "уведомления не разрешены");
+  }
+  return data.response;
+}
+
+/** Пуш клиенту: уведомление мини-приложения и/или сообщение от сообщества. */
+async function sendVkClientReminder(userId, text, fragment) {
+  const { token } = vkConfig();
+  const { serviceToken, appId } = appConfig();
+  const link = `https://vk.com/app${appId}#${fragment}`;
+  const tasks = [];
+  if (serviceToken) tasks.push(sendAppNotification(serviceToken, userId, text, fragment).then(() => "app"));
+  if (token) tasks.push(sendToAdmin(token, userId, `${text}\n\n${link}`, Date.now() * 1000 + 7).then(() => "message"));
+  if (!tasks.length) throw new Error("Не заданы VK_APP_SERVICE_TOKEN или VK_BOT_TOKEN");
+  const results = await Promise.allSettled(tasks);
+  const sent = results.filter((r) => r.status === "fulfilled").map((r) => r.value);
+  const failed = results.filter((r) => r.status === "rejected").map((r) => r.reason.message);
+  if (!sent.length) throw new Error(failed.join("; "));
+  return { sent, failed };
+}
+
+module.exports = { sendVkOrderNotification, sendVkClientReminder, vkConfigured, vkConfig, orderVkId };

@@ -9,7 +9,7 @@ function escapeHtml(text) {
     .replace(/>/g, "&gt;");
 }
 
-function formatOrderMessage(orderData) {
+function formatOrderMessage(orderData, title) {
   const total = Number(orderData.totalPrice || 0).toLocaleString("ru-RU");
   const product = orderData.productLabel || orderData.product || "—";
 
@@ -33,13 +33,20 @@ function formatOrderMessage(orderData) {
       }`
     : "";
 
+  const extensions = Array.isArray(orderData.extensions) ? orderData.extensions : [];
+  const ext = extensions[extensions.length - 1];
+  const extension = ext
+    ? `\n⏱ <b>Продление:</b> +${ext.days} сут. до ${escapeHtml(ext.toDate)} · +${Number(ext.price || 0).toLocaleString("ru-RU")} ₽`
+    : "";
+
   return (
-    `🆕 <b>Новый заказ</b> <code>${escapeHtml(orderData.id)}</code>\n\n` +
+    `🆕 <b>${escapeHtml(title || "Новый заказ")}</b> <code>${escapeHtml(orderData.id)}</code>\n\n` +
     `🏙 <b>Город:</b> ${escapeHtml(orderData.cityLabel || orderData.city || "—")}\n` +
     `👤 <b>Клиент:</b> ${escapeHtml(orderData.customerName)}\n` +
     `📱 <b>Телефон:</b> ${escapeHtml(orderData.customerPhone)}\n` +
     `🎮 <b>Приставка:</b> ${escapeHtml(product)}\n` +
-    `📅 <b>Аренда:</b> ${escapeHtml(orderData.startDate)} — ${escapeHtml(orderData.endDate)} (${orderData.days} сут.)\n` +
+    `📅 <b>Аренда:</b> ${escapeHtml(orderData.startDate)} — ${escapeHtml(orderData.endDate)} (${orderData.days} сут.)` +
+    `${extension}\n` +
     `💰 <b>Сумма:</b> ${total} ₽` +
     `${discount}\n` +
     `${fulfillment}` +
@@ -48,7 +55,7 @@ function formatOrderMessage(orderData) {
   );
 }
 
-async function sendOrderNotification(orderData) {
+async function sendOrderNotification(orderData, title) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId =
     process.env.TELEGRAM_ADMIN_GROUP_CHAT_ID || process.env.TELEGRAM_CHAT_ID;
@@ -63,7 +70,7 @@ async function sendOrderNotification(orderData) {
     throw new Error("orderData.id обязателен");
   }
 
-  const text = formatOrderMessage(orderData);
+  const text = formatOrderMessage(orderData, title);
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
   const response = await fetch(url, {

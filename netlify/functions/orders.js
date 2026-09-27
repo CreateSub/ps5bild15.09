@@ -6,7 +6,7 @@
  * POST actions: create | updateStatus | extend | addReview
  */
 const { getRentalStore } = require("./lib/store");
-const { DAY_MS, calculateRentalPrice, rentalEndsAt } = require("./lib/rental");
+const { DAY_MS, calculateRentalPrice, calculateTvPrice, calculateGamepadPrice, rentalEndsAt, archiveExpired } = require("./lib/rental");
 
 const STORE_NAME = "ps5-rental";
 const ORDERS_KEY = "orders";
@@ -183,7 +183,13 @@ async function handleCreate(s, payload) {
 
   const discountPercent = Math.max(loyalty.percent, promoPercent);
   const basePrice = Number(payload.basePrice || payload.totalPrice) || 0;
-  const totalPrice = applyDiscount(basePrice, discountPercent);
+  const extraGamepads = Number(payload.extraGamepads) || 0;
+  const wantsTv = Array.isArray(payload.extras)
+    ? payload.extras.some((item) => /телевизор/i.test(String(item)))
+    : Boolean(payload.extraTv);
+  const days = payload.days || range.length;
+  const extrasPrice = calculateGamepadPrice(days, extraGamepads) + (wantsTv ? calculateTvPrice(days) : 0);
+  const totalPrice = applyDiscount(basePrice, discountPercent) + extrasPrice;
 
   const deliveryCity = String(payload.deliveryCity || "").trim();
   const deliveryStreet = String(payload.deliveryStreet || "").trim();
@@ -227,7 +233,8 @@ async function handleCreate(s, payload) {
     consoleModel: payload.consoleModel || null,
     consoleLabel: payload.consoleLabel || "",
     extras: payload.extras || [],
-    extraGamepads: Number(payload.extraGamepads) || 0,
+    extraGamepads,
+    extrasPrice,
     gameNote: String(payload.gameNote || "").trim().slice(0, 500),
     reviewLeft: false,
     createdAt: new Date().toISOString(),
@@ -502,6 +509,14 @@ async function handleAddReview(s, payload) {
   return json(200, { ok: true, review, reviews });
 }
 
+async function persistArchive(s) {
+  const orders = await readJson(s, ORDERS_KEY, []);
+  if (!archiveExpired(orders)) return orders;
+  await s.setJSON(ORDERS_KEY, orders);
+  await s.setJSON(OCCUPIED_KEY, rebuildOccupied(orders));
+  return orders;
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers: corsHeaders(), body: "" };
@@ -519,7 +534,7 @@ exports.handler = async (event) => {
 
   if (event.httpMethod === "GET") {
     try {
-      const orders = await readJson(s, ORDERS_KEY, []);
+      const orders = await persistArchive(s);
       let occupied = await readJson(s, OCCUPIED_KEY, []);
       occupied = (occupied || []).map((x) =>
         String(x).includes("|") ? x : `tyumen|${x}`
@@ -584,3 +599,5 @@ exports.handler = async (event) => {
     return json(500, { ok: false, error: err.message || "Write error" });
   }
 };
+
+exports.persistArchive = persistArchive;

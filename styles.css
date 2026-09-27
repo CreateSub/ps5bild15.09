@@ -141,6 +141,63 @@ body {
   gap: 0.75rem;
 }
 
+.header-side {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.gta-wanted {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  max-width: min(230px, 48vw);
+  cursor: default;
+}
+
+.gta-wanted-stars {
+  display: flex;
+  gap: 3px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #0e2831;
+}
+
+.gta-star {
+  width: 18px;
+  height: 18px;
+  color: #d5e0e2;
+}
+
+.gta-star.is-on {
+  color: #f7f7f2;
+  filter: drop-shadow(0 0 1px #0e2831) drop-shadow(0 0 5px #df1820);
+}
+
+.gta-wanted-caption {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: right;
+  color: var(--ink);
+}
+
+@media (max-width: 559px) {
+  .gta-star {
+    width: 14px;
+    height: 14px;
+  }
+
+  .gta-wanted-caption {
+    font-size: 10px;
+  }
+}
+
 .user-chip {
   font-size: 0.85rem;
   color: var(--gray-300);

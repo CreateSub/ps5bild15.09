@@ -34,7 +34,7 @@
 
       title: "Периферия",
 
-      desc: "Геймпады, наушники, камеры и другое. Выберите даты аренды.",
+      desc: "Геймпад, телевизор, клавиатура и мышь. 1 геймпад — 300 ₽/сут, два — 600 ₽/сут. От 2 суток: 200 ₽/сут за один и 400 ₽/сут за два.",
 
     },
 
@@ -108,6 +108,7 @@
     selectedCity: "tyumen",
 
     adminCityFilter: "",
+    adminTab: "orders",
 
     invFilterCity: "",
 
@@ -1284,11 +1285,22 @@
 
     const qty = Number(state.extras.gamepadQty) || 0;
 
-    if (qty === 1) list.push("Дополнительный геймпад ×1 (300 ₽)");
+    const days = PricingService.durationDays(state.startDate, state.endDate);
 
-    if (qty === 2) list.push("Дополнительные геймпады ×2 (600 ₽)");
+    if (qty === 1) {
+      const price = PricingService.calculateGamepadPrice(days, 1);
+      list.push(`Дополнительный геймпад ×1 (${price ? price.toLocaleString("ru-RU") + " ₽" : "300 ₽/сут"})`);
+    }
 
-    if (state.extras.tv) list.push("Телевизор");
+    if (qty === 2) {
+      const price = PricingService.calculateGamepadPrice(days, 2);
+      list.push(`Дополнительные геймпады ×2 (${price ? price.toLocaleString("ru-RU") + " ₽" : "600 ₽/сут"})`);
+    }
+
+    if (state.extras.tv) {
+      const price = PricingService.calculateTvPrice(days);
+      list.push(`Телевизор${price ? " (" + price.toLocaleString("ru-RU") + " ₽)" : ""}`);
+    }
 
     return list;
 
@@ -1306,8 +1318,9 @@
     const peek = promoRaw && promoRaw.trim() ? BackendAPI.peekPromo(promoRaw, state.selectedCity) : { ok: true, promo: null };
     const promoPercent = peek.ok && peek.promo ? Number(peek.promo.percent) || 0 : 0;
     const discountPercent = Math.max(Number(loyalty.percent) || 0, promoPercent);
-    const extrasPrice =
-      (Number(state.extras.gamepadQty) || 0) * (PricingService.EXTRA_GAMEPAD_PRICE || 300);
+    const gamepadPrice = PricingService.calculateGamepadPrice(days, state.extras.gamepadQty);
+    const tvPrice = state.extras.tv ? PricingService.calculateTvPrice(days) : 0;
+    const extrasPrice = gamepadPrice + tvPrice;
     const total = PricingService.applyDiscount(rental, discountPercent) + extrasPrice;
     return {
       days,
@@ -1503,14 +1516,16 @@
 
     });
 
-    els.adminOrdersPanel.hidden = tab !== "orders";
+    els.adminOrdersPanel.hidden = tab !== "orders" && tab !== "archive";
 
     els.adminClientsPanel.hidden = tab !== "clients";
 
     if (els.adminInventoryPanel) els.adminInventoryPanel.hidden = tab !== "inventory";
     if (els.adminPromosPanel) els.adminPromosPanel.hidden = tab !== "promos";
 
-    if (tab === "orders") {
+    state.adminTab = tab;
+
+    if (tab === "orders" || tab === "archive") {
 
       renderOrdersTable();
 
@@ -1682,8 +1697,16 @@
       list = orders.filter((o) => (o.city || "tyumen") === state.adminCityFilter);
     }
 
+    const inArchive = (order) => {
+      const status = normalizeOrderStatus(order.status);
+      return status === "completed" || status === "rejected";
+    };
+    list = list.filter((order) => (state.adminTab === "archive" ? inArchive(order) : !inArchive(order)));
+
     if (list.length === 0) {
-      els.ordersList.innerHTML = '<p class="empty-cell">Заказов пока нет</p>';
+      els.ordersList.innerHTML = `<p class="empty-cell">${
+        state.adminTab === "archive" ? "В архиве пока пусто" : "Активных заказов нет"
+      }</p>`;
       return;
     }
 
@@ -3787,6 +3810,53 @@
   });
 
 
+
+  function initGtaWanted() {
+    const root = document.getElementById("gta-wanted");
+    if (!root) return;
+    const starsEl = root.querySelector(".gta-wanted-stars");
+    const captionEl = root.querySelector(".gta-wanted-caption");
+    const release = Date.UTC(2026, 10, 18, 11, 0, 0);
+    const day = 24 * 60 * 60 * 1000;
+    const daysLeft = Math.ceil((release - Date.now()) / day);
+    const level = daysLeft <= 1 ? 5 : daysLeft <= 7 ? 4 : daysLeft <= 14 ? 3 : daysLeft <= 30 ? 2 : 1;
+    const lines = {
+      1: "GTA 6 ещё не скоро",
+      2: "Месяц до выхода GTA 6",
+      3: "Две недели до GTA 6",
+      4: "Неделя до GTA 6",
+      5: "GTA 6 уже на пороге",
+    };
+    const cta = "Успей забронировать свою пс5 на выход гта 6";
+    const star =
+      '<svg class="gta-star" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2 14.7 8.6 21.6 9.2 16.4 13.6 18 20.3 12 16.7 6 20.3 7.6 13.6 2.4 9.2 9.3 8.6z"/></svg>';
+    starsEl.innerHTML = Array.from({ length: 5 }, (_, i) =>
+      star.replace("gta-star", i < level ? "gta-star is-on" : "gta-star")
+    ).join("");
+    let showCta = false;
+    const paint = () => {
+      captionEl.textContent = showCta ? cta : lines[level];
+    };
+    paint();
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+    if (fine.matches) {
+      root.addEventListener("mouseenter", () => {
+        showCta = true;
+        paint();
+      });
+      root.addEventListener("mouseleave", () => {
+        showCta = false;
+        paint();
+      });
+      return;
+    }
+    window.setInterval(() => {
+      showCta = !showCta;
+      paint();
+    }, 12000);
+  }
+
+  initGtaWanted();
 
   const adminSession = BackendAPI.getAdminSession();
 

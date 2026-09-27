@@ -11,8 +11,8 @@
   global.SUBSCRIPTION_CATALOGS = {
     premium: {
       id: "premium",
-      title: "PlayStation Plus Premium",
-      subtitle: "Каталог игр Extra + классика Premium",
+      title: "PlayStation Plus Deluxe",
+      subtitle: "Каталог игр PS Plus Deluxe",
       sourceLabel: "PlayStation",
       sourceUrl: "https://www.playstation.com/ru-ru/ps-plus/games/?category=GAME_CATALOG",
       updatedAt: "2026-08-29",

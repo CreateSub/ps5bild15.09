@@ -5,6 +5,7 @@
  */
 const { getRentalStore } = require("./lib/store");
 const { REMIND_BEFORE_MS, rentalEndsAt } = require("./lib/rental");
+const { persistArchive } = require("./orders");
 const { sendVkClientReminder, orderVkId } = require("./vkBot");
 
 const STORE_NAME = "ps5-rental";
@@ -41,6 +42,7 @@ function dueOrders(orders, now) {
 
 exports.handler = async (event) => {
   const store = getRentalStore(STORE_NAME, event);
+  await persistArchive(store);
   const now = Date.now();
   const orders = (await store.get(ORDERS_KEY, { type: "json" })) || [];
   const due = dueOrders(orders, now);

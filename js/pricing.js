@@ -4,6 +4,7 @@
  * Fixed: 1 day, 2 days.
  * From 3 days: daily rate × days.
  * From 7 days (week+): cheaper daily rate × days.
+ * Full month (30+ days): 399 ₽ per day.
  */
 (function (global) {
   const TARIFFS = {
@@ -37,7 +38,8 @@
     },
   };
 
-  const EXTRA_GAMEPAD_PRICE = 300;
+  const MONTH_DAILY = 399;
+  const FROM_PRICE = 399;
 
   function getTariff(model) {
     return TARIFFS[model] || TARIFFS.ps5;
@@ -47,10 +49,29 @@
     const t = getTariff(model);
     const d = Math.floor(Number(days));
     if (!Number.isFinite(d) || d < 1) return 0;
+    if (d >= 30) return MONTH_DAILY * d;
     if (d === 1) return t.p1;
     if (d === 2) return t.p2;
     if (d >= 7) return t.from7Daily * d;
     return t.from3Daily * d;
+  }
+
+  function calculateTvPrice(days) {
+    const d = Math.floor(Number(days));
+    if (!Number.isFinite(d) || d < 1) return 0;
+    if (d === 1) return 799;
+    if (d === 2) return 599 * 2;
+    if (d >= 30) return 199 * d;
+    if (d >= 7) return 299 * d;
+    return 399 * d;
+  }
+
+  function calculateGamepadPrice(days, qty) {
+    const d = Math.floor(Number(days));
+    const count = Number(qty) || 0;
+    if (!Number.isFinite(d) || d < 1 || count < 1) return 0;
+    if (d === 1) return count === 1 ? 300 : 600;
+    return (count === 1 ? 200 : 400) * d;
   }
 
   function durationDays(startKey, endKey) {
@@ -69,6 +90,9 @@
     const total = calculateRentalPrice(days, model).toLocaleString("ru-RU");
     if (days === 1) return `${t.label}: 1 день — ${total} ₽`;
     if (days === 2) return `${t.label}: 2 дня — ${total} ₽`;
+    if (days >= 30) {
+      return `${t.label}: ${days} дн. × ${MONTH_DAILY.toLocaleString("ru-RU")} ₽ = ${total} ₽`;
+    }
     if (days >= 7) {
       return `${t.label}: ${days} дн. × ${t.from7Daily.toLocaleString("ru-RU")} ₽ = ${total} ₽`;
     }
@@ -81,7 +105,8 @@
       `Тариф ${t.label}: 1 дн. — ${t.p1.toLocaleString("ru-RU")} ₽ · ` +
       `2 — ${t.p2.toLocaleString("ru-RU")} · ` +
       `от 3 дн. — ${t.from3Daily.toLocaleString("ru-RU")}/сут. · ` +
-      `от 7 дн. — ${t.from7Daily.toLocaleString("ru-RU")}/сут.`
+      `от 7 дн. — ${t.from7Daily.toLocaleString("ru-RU")}/сут. · ` +
+      `месяц — ${MONTH_DAILY.toLocaleString("ru-RU")}/сут.`
     );
   }
 
@@ -100,6 +125,9 @@
     applyDiscount,
     getTariff,
     TARIFFS,
-    EXTRA_GAMEPAD_PRICE,
+    MONTH_DAILY,
+    FROM_PRICE,
+    calculateTvPrice,
+    calculateGamepadPrice,
   };
 })(window);

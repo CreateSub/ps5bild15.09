@@ -111,10 +111,16 @@
         <span class="site-logo-text"><b>Приставка</b> <span>рядом</span></span>
       </h1>
     </div>
-    <div class="header-actions" id="header-actions" hidden>
+    <div class="header-side">
+      <div class="gta-wanted" id="gta-wanted">
+        <div class="gta-wanted-stars" aria-hidden="true"></div>
+        <p class="gta-wanted-caption"></p>
+      </div>
+      <div class="header-actions" id="header-actions" hidden>
       <button type="button" class="btn btn-ghost" id="cabinet-btn" hidden>Кабинет</button>
       <span class="user-chip" id="user-chip"></span>
       <button type="button" class="btn btn-ghost" id="logout-btn">Выйти</button>
+    </div>
     </div>
   </header>
 
@@ -129,9 +135,8 @@
       <div class="hero">
         <p class="hero-kicker">Аренда PlayStation</p>
         <h2 class="hero-brand">Приставка <span>рядом</span></h2>
-        <p class="hero-slogan">Играй сегодня</p>
-        <p class="hero-lead">Нужна консоль на вечер? Привезём, подключим — и можно играть. PlayStation&nbsp;5 от 599&nbsp;₽ / сутки.</p>
-        <p class="hero-offer">PS5 • 2 геймпада • бронирование онлайн</p>
+        <p class="hero-lead">Привезём, подключим — и можно играть. PlayStation&nbsp;5 от 399&nbsp;₽ / сутки.</p>
+        <p class="hero-offer">PS5 • 2 геймпада • игры</p>
       </div>
 
       <div class="auth-panel">
@@ -227,27 +232,27 @@
             <div class="product-card-box" aria-hidden="true">
               <img src="img/categories/ps5.jpg" alt="" width="960" height="720" loading="lazy" decoding="async" />
             </div>
-            <p class="product-card-label">🔥 PS5/PS5 PRO</p>
+            <p class="product-card-label">PS5/PS5 PRO</p>
           </button>
           <button type="button" class="product-card" data-product="vr2">
             <div class="product-card-box" aria-hidden="true">
               <img src="img/categories/vr2.jpg" alt="" width="960" height="720" loading="lazy" decoding="async" />
             </div>
-            <p class="product-card-label">🔥 VR2</p>
+            <p class="product-card-label">VR2</p>
           </button>
           <button type="button" class="product-card" data-product="periphery">
             <div class="product-card-box" aria-hidden="true">
               <img src="img/categories/periphery.jpg" alt="" width="960" height="720" loading="lazy" decoding="async" />
             </div>
-            <p class="product-card-label">🔥 Периферия</p>
+            <p class="product-card-label">Периферия</p>
           </button>
         </nav>
 
         <section class="games-catalog" id="games-catalog" aria-labelledby="games-catalog-title">
           <h3 id="games-catalog-title">Игры по подписке</h3>
-          <p class="games-catalog-lead">Каталоги PS Plus Premium и EA Play с официальных страниц Sony и EA. Premium включает каталог Extra и классику. Состав подписок меняется — сверяйте полный список по ссылке под поиском.</p>
+          <p class="games-catalog-lead">На всех приставках подписка PS Plus Deluxe и каталог EA Play. Состав игр меняется — сверяйте полный список по ссылке под поиском.</p>
           <div class="games-catalog-tabs" role="tablist">
-            <button type="button" class="games-catalog-tab is-active" data-catalog="premium" role="tab" aria-selected="true">PS Premium</button>
+            <button type="button" class="games-catalog-tab is-active" data-catalog="premium" role="tab" aria-selected="true">PS Plus Deluxe</button>
             <button type="button" class="games-catalog-tab" data-catalog="eaPlay" role="tab" aria-selected="false">EA Play</button>
           </div>
           <label class="field games-search-field">
@@ -277,14 +282,14 @@
               <input type="radio" name="console-model" value="ps5" id="console-ps5" checked />
               <span class="console-option-card">
                 <strong>PS5</strong>
-                <small>от 599 ₽ / сутки</small>
+                <small>от 399 ₽ / сутки</small>
               </span>
             </label>
             <label class="console-option">
               <input type="radio" name="console-model" value="ps5_pro" id="console-ps5-pro" />
               <span class="console-option-card">
                 <strong>PS5 PRO</strong>
-                <small>от 799 ₽ / сутки</small>
+                <small>от 399 ₽ / сутки</small>
               </span>
             </label>
           </div>
@@ -362,8 +367,8 @@
                   <span>Дополнительные геймпады</span>
                   <select id="extra-gamepad-qty" name="extraGamepads">
                     <option value="0" selected>Не нужны</option>
-                    <option value="1">1 геймпад · 300 ₽</option>
-                    <option value="2">2 геймпада · 600 ₽</option>
+                    <option value="1">1 геймпад</option>
+                    <option value="2">2 геймпада</option>
                   </select>
                 </label>
                 <label class="checkbox-row">
@@ -371,7 +376,7 @@
                   <span>Телевизор</span>
                 </label>
               </div>
-              <p class="extras-hint">В комплекте уже 2 геймпада. Дополнительный — 300&nbsp;₽ за штуку (можно взять ещё 1 или 2).</p>
+              <p class="extras-hint" id="extras-hint">Геймпады: 1 сутки — 300&nbsp;₽ за один и 600&nbsp;₽ за два, от 2 суток — 200&nbsp;₽/сут за один и 400&nbsp;₽/сут за два. Телевизор: 1 сутки — 799&nbsp;₽, 2 суток — 599&nbsp;₽/сут, от 3 — 399&nbsp;₽/сут, от недели — 299&nbsp;₽/сут, месяц — 199&nbsp;₽/сут.</p>
             </section>
 
             <div class="order-summary">
@@ -383,7 +388,7 @@
                 <span>Итого</span>
                 <strong id="total-price">0 ₽</strong>
               </div>
-              <p class="rate-note" id="pricing-note">Тариф PS5: 1 дн. — 1&nbsp;199&nbsp;₽ · 2 — 1&nbsp;999 · от 3 дн. — 899/сут. · от 7 дн. — 599/сут.</p>
+              <p class="rate-note" id="pricing-note">Тариф PS5: 1 дн. — 1&nbsp;199&nbsp;₽ · 2 — 1&nbsp;999 · от 3 дн. — 899/сут. · от 7 дн. — 599/сут. · месяц — 399/сут.</p>
               <p class="rate-note rate-note-warn" id="pricing-holiday-note">В праздничные дни цена может меняться — дополнительную информацию уточнит менеджер.</p>
             </div>
 
@@ -469,7 +474,7 @@
                   <p>Полный текст — по кнопке ниже и в PDF.</p>
                 </div>
                 <p class="terms-read-link">
-                  <button type="button" class="link-btn js-open-oferta">Читать полный договор оферты</button>
+                  <button type="button" class="link-btn js-open-oferta">Читать публичную оферту</button>
                   <a class="link-btn" href="docs/Oferta_Pristavka_Ryadom.pdf" target="_blank" rel="noopener">Скачать PDF</a>
                 </p>
                 <label class="checkbox-row">
@@ -578,6 +583,7 @@
 
       <div class="admin-tabs" role="tablist">
         <button type="button" class="admin-tab is-active" data-admin-tab="orders">Активные заказы</button>
+        <button type="button" class="admin-tab" data-admin-tab="archive">Архив</button>
         <button type="button" class="admin-tab" data-admin-tab="clients">База клиентов</button>
         <button type="button" class="admin-tab" data-admin-tab="inventory">Приставки</button>
         <button type="button" class="admin-tab" data-admin-tab="promos">Промокоды</button>
@@ -976,9 +982,9 @@
     <p>ИП Муравьева Ирина Николаевна</p>
     <p>ИНН 860404947816 · ОГРНИП 325861700060749</p>
     <p>Телефон: <a href="tel:+79933465152">+7 (993) 346-51-52</a></p>
-    <p>Почта для связи и подписанных договоров: <a href="mailto:PristavkaRyadom@yandex.ru">PristavkaRyadom@yandex.ru</a></p>
+    <p>Почта: <a href="mailto:PristavkaRyadom@yandex.ru">PristavkaRyadom@yandex.ru</a></p>
     <p class="site-footer-links">
-      <button type="button" class="link-btn js-open-oferta">Договор оферты</button>
+      <button type="button" class="link-btn js-open-oferta">Публичная оферта</button>
       <a class="link-btn" href="docs/Oferta_Pristavka_Ryadom.pdf" target="_blank" rel="noopener">Оферта PDF</a>
       <button type="button" class="link-btn js-open-privacy">Политика конфиденциальности</button>
     </p>
